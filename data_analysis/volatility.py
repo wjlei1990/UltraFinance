@@ -1,10 +1,49 @@
 """Evaulate historical volatility and implied volatility"""
 import numpy
 import scipy
+import sys
+sys.path.append('../')
+from data_service.StockData import StockClient 
 
 _TRADING_DAYS = 252
 
-def historical_volatility(stock_price, lookback_num=30, time_unit=1, date=None):
+def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
+    """
+    Get historical volatitive for a specific `ticket` for the last `limit`
+    number of days use the default data source.
+    
+    INPUTS:
+    ticket: string, specify stock ticket, for example, 'AAPL'
+    lookback_num: number of days to evaulate historical vol
+    limit: an integer, how many days to evaulate for.
+           default is one year (252 days)
+           if limit is 0 or negative, use the whole data avialable
+
+    OUTPUTS:
+    vol: numpy array, historical volatility
+    t:   date corresponds to vol
+    """
+    fromsql   = StockClient('apc524','apc524','stockprice',host='junyic.net')
+    stockdata = fromsql.read_full_stock_record([ticket])
+    stockdata = stockdata[ticket]
+    if stockdata is None:
+        raise ValueError('Ticket does not exist')
+   
+    adj_close = stockdata['Adj Close']
+    t         = stockdata['Date']
+    if limit > 0:
+        try:
+            adj_close = adj_close[-(limit+lookback_num-1):]
+            t         = t[-(limit+lookback_num-1):]
+        except IndexError:
+            raise IndexError('data too short to calculate volatility: \
+                              try smaller lookback_num')
+
+    vol, t = cal_historical_volatility(adj_close, lookback_num, 1,t)
+    return vol, t
+
+
+def cal_historical_volatility(stock_price, lookback_num=30, time_unit=1, date=None):
     """
     Evaulate annulized historical volatility given a list of stock price, 
     which is the standard deviation of the instrument's yearly logarithmic 
@@ -20,6 +59,9 @@ def historical_volatility(stock_price, lookback_num=30, time_unit=1, date=None):
     OUTPUTS:
     sigma: a list of volatility. Size if len(stock_price) - lookback_num+1
     t: optional, dates corresponds to volatility
+
+    EXCEPTIONS:
+    throws ValueError if inputs parameters are wrong
     """
     if (len(stock_price) < lookback_num):
         raise ValueError('look back period cannot be larger than stock_price length')
