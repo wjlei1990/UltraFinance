@@ -134,6 +134,11 @@ class StockServer(object):
         res = qry.one()
         return res.max_date
 
+    @staticmethod
+    def get_cur_date():
+        now = datetime.datetime.now()
+        return datetime.datetime(now.year, now.month, now.day)
+
     def update_db(self, stock_list):
         """
         Function that updates the database to current date
@@ -151,8 +156,7 @@ class StockServer(object):
             if table_exist:
                 print "Update now..."
                 # get end time
-                now = datetime.datetime.now()
-                endtime = datetime.datetime(now.year, now.month, now.day)
+                endtime = self.get_cur_date()
                 print type(endtime), endtime
                 # get start time
                 starttime = self.get_largest_date(stock_name) + datetime.timedelta(days=1)

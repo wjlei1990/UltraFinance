@@ -4,16 +4,20 @@ from StockData import StockClient
 import datetime
 from sp500 import sp500
 
-list=sp500()
-stock_list_all=sp500.symbol_list()
-print stock_list_all
+get_sp500=sp500()
+stock_list_all=get_sp500.method()
+print len(stock_list_all)
+# print stock_list
 
 
 # pull data from yahoo online service
 onlinedata = StockOnline()
 #stock_list = ('IBM','AAPL')
 starttime = datetime.datetime(1990, 1, 1)
-endtime = datetime.datetime(2014,12,28)
+endtime = StockServer.get_cur_date()
+
+print starttime, endtime
+
 
 # print stock_table['AAPL']
 
