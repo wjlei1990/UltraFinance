@@ -174,6 +174,8 @@ class StockClient(object):
 
     def read_stock_record(self, stock_list, starttime, endtime):
 
+        stock_table = {}
+
         if starttime > endtime:
             raise ValueError('Starttime is larger than endtime')
 
@@ -187,7 +189,8 @@ class StockClient(object):
             #    print column.key
             qry = (session.query(stockobj).filter(and_(stockobj.Date >= starttime, stockobj.Date <= endtime)))
             # print qry.first()
-        return self.convert_qry_to_DF(qry)
+            stock_table[stock_name] = self.convert_qry_to_DF(qry)
+        return stock_table
 
     @staticmethod
     def convert_qry_to_DF(qry):
@@ -200,7 +203,7 @@ class StockClient(object):
         stock_table['Volume']=[]
         stock_table['Adj Close']=[]
         for idx, entry in enumerate(qry.all()):
-            print idx, entry.__dict__['Adj Close']
+            #print idx, entry.__dict__['Adj Close']
             stock_table['Open'].append(entry.Open)
             stock_table['High'].append(entry.High)
             stock_table['Low'].append(entry.Low)

@@ -40,7 +40,7 @@ tosql.finalize_engine()
 #tosql.update_db(stock_list)
 """
 
-stock_list = ('IBM',)
+stock_list = ('IBM','AAPL')
 onlinedata = StockOnline()
 starttime = datetime.datetime(2014, 1, 1)
 endtime = datetime.datetime(2014,1,10)
@@ -56,6 +56,7 @@ fromsql = StockClient('apc524','apc524','stockprice',host='junyic.net')
 #fromsql = StockClient('root','000539','stock')
 df = fromsql.read_stock_record(stock_list, starttime, endtime)
 #print sk_table
-print df
+print df['AAPL']
+print df['IBM']
 
 
