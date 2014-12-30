@@ -21,7 +21,7 @@ def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
 
     OUTPUTS:
     vol: numpy array, historical volatility
-    t:   date corresponds to vol
+    t:   list, date corresponds to vol
     """
     fromsql   = StockClient('apc524','apc524','stockprice',host='junyic.net')
     stockdata = fromsql.read_full_stock_record([ticket])
@@ -40,7 +40,7 @@ def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
                               try smaller lookback_num')
 
     vol, t = cal_historical_volatility(adj_close, lookback_num, 1,t)
-    return vol, t
+    return vol, list(t)
 
 
 def cal_historical_volatility(stock_price, lookback_num=30, time_unit=1, date=None):
