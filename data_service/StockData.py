@@ -8,6 +8,8 @@ import pandas.io
 # build up connection with mysql
 import sqlalchemy
 
+from sqlalchemy_stubs import *
+
 class StockOnline(object):
     """
     Class Server includes methods that pull data from online resource and store them into database
@@ -52,9 +54,6 @@ class StockOnline(object):
 
         return stock_table
 
-class StockSqlObj(object):
-    pass
-
 class StockServer(object):
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
@@ -98,46 +97,12 @@ class StockServer(object):
                     except:
                         raise RuntimeError("Can not init table in database for stock %s" %stock_name)
 
-    # ----------------------------------------------------------------------
-    def loadsession(self, stock_name):
-        """"""
-        from sqlalchemy import MetaData, Table
-        from sqlalchemy.orm import mapper, sessionmaker
-        from sqlalchemy import Column, DATETIME
-
-        metadata = MetaData(self.engine)
-        stocktable = Table(stock_name, metadata, Column("Date", DATETIME, primary_key=True),autoload=True)
-        #mapper(StockSqlObj, stocktable)
-
-        T1Foo = self.map_class_to_some_table(StockSqlObj, stocktable, stock_name)
-
-        session = self.create_session()
-        return session, T1Foo
-
-    @staticmethod
-    def map_class_to_some_table(cls, table, entity_name, **kw):
-        from sqlalchemy.orm import mapper
-        newcls = type(entity_name, (cls, ), {})
-        mapper(newcls, table, **kw)
-        return newcls
-
-    def create_session(self):
-        from sqlalchemy.orm import mapper, sessionmaker
-        session = sessionmaker(bind=self.engine)
-        session = session()
-        return session
-
     def get_largest_date(self, stock_name):
         from sqlalchemy.sql import func
-        session, stockobj = self.loadsession(stock_name)
+        session, stockobj = loadsession(stock_name, self.engine)
         qry = session.query(func.max(stockobj.Date).label("max_date"))
         res = qry.one()
         return res.max_date
-
-    @staticmethod
-    def get_cur_date():
-        now = datetime.datetime.now()
-        return datetime.datetime(now.year, now.month, now.day)
 
     def update_db(self, stock_list):
         """
@@ -151,18 +116,18 @@ class StockServer(object):
 
         for stock_name in stock_list:
             print "Update table: %s" %stock_name
-            table_exist=pandas.io.sql.has_table(stock_name, self.engine)
+            table_exist = pandas.io.sql.has_table(stock_name, self.engine)
             print "Table exist: %s" % table_exist
             if table_exist:
                 print "Update now..."
                 # get end time
-                endtime = self.get_cur_date()
+                endtime = get_cur_date()
                 print type(endtime), endtime
                 # get start time
                 starttime = self.get_largest_date(stock_name) + datetime.timedelta(days=1)
                 print type(starttime), starttime
                 stock_table = onlinedata.pull_data((stock_name,), starttime, endtime)
-                #write into db
+                # write into db
                 if stock_table[stock_name] is not None:
                     print "Online Data is not None. Updating..."
                     stock_table[stock_name].to_sql(stock_name, self.engine, if_exists='append')
@@ -207,8 +172,47 @@ class StockClient(object):
                 stock_table[stock] = None
         return stock_table
 
-    def read_stock_record(self, stock_list):
-        pass
+    def read_stock_record(self, stock_list, starttime, endtime):
+
+        if starttime > endtime:
+            raise ValueError('Starttime is larger than endtime')
+
+        for stock_name in stock_list:
+            session, stockobj = loadsession(stock_name, self.engine)
+            #for key in stockobj.__table__.columns:
+            #    print key
+            from sqlalchemy import inspect, and_
+            inspector = inspect(stockobj)
+            #for column in inspector.attrs:
+            #    print column.key
+            qry = (session.query(stockobj).filter(and_(stockobj.Date >= starttime, stockobj.Date <= endtime)))
+            # print qry.first()
+        return self.convert_qry_to_DF(qry)
+
+    @staticmethod
+    def convert_qry_to_DF(qry):
+        stock_table = {}
+        index_list = []
+        stock_table['Open']=[]
+        stock_table['High']=[]
+        stock_table['Low']=[]
+        stock_table['Close']=[]
+        stock_table['Volume']=[]
+        stock_table['Adj Close']=[]
+        for idx, entry in enumerate(qry.all()):
+            print idx, entry.__dict__['Adj Close']
+            stock_table['Open'].append(entry.Open)
+            stock_table['High'].append(entry.High)
+            stock_table['Low'].append(entry.Low)
+            stock_table['Close'].append(entry.Close)
+            stock_table['Volume'].append(entry.Volume)
+            stock_table['Adj Close'].append(entry.__dict__['Adj Close'])
+            index_list.append(entry.Date)
+
+        #convert to DataFrame
+        df=pandas.DataFrame(stock_table, index=index_list)
+        df.index.name = 'Date'
+        return df
 
     def list_stock_in_db(self):
         """
@@ -233,6 +237,6 @@ class StockClient(object):
         return boolen_dict
 
 
-
-
-
+def get_cur_date():
+    now = datetime.datetime.now()
+    return datetime.datetime(now.year, now.month, now.day)
