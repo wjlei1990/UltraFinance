@@ -206,7 +206,7 @@ class StockServer(SQL_Util):
                         print "\tCreate table in database... %s" % stock_name
                         # print data
                     except:
-                        raise RuntimeError("Can not init table in database for stock %s" % stock_name)
+                        print ("Can not init table in database for stock %s" % stock_name)
                 else:
                     print "Table already exist. Skip it. But you can force to replace it by setting init_mode=replace"
 

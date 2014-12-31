@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from StockData import StockOnline
 from StockData import StockServer
 from StockData import StockClient, get_cur_date
@@ -22,7 +25,7 @@ print starttime, endtime
    
 # print stock_table['AAPL']
 
-"""
+
 
 # store data into db
 tosql = StockServer('root', '000539', 'test')
@@ -31,7 +34,9 @@ for stock_name in stock_list:
     stock_table = onlinedata.pull_data(stock_name, starttime, endtime)
     tosql.init_db(stock_table, init_mode='replace')
 
+tosql.init_index_table()
 
+"""
 #tosql.finalize_engine()
 #print tosql.get_largest_date('IBM')
 #print tosql.get_largest_date('AAPL')
@@ -51,7 +56,7 @@ stock_table = onlinedata.pull_data(stock_list, starttime, endtime)
 
 """
 
-
+"""
 starttime = datetime.datetime(2014, 12, 1)
 endtime = datetime.datetime(2014, 12, 20)
 
@@ -67,4 +72,4 @@ print dict1['AAPL']
 #print dict2['AAPL']
 
 fromsql.finalize_connection()
-
+"""
