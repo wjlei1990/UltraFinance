@@ -1,4 +1,4 @@
-#!
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import pandas.io.data as web
@@ -124,7 +124,7 @@ class StockOnline(object):
         except Exception:
             return False
 
-    def pull_data(self, stock_list, start=datetime.datetime(2012,1,1), end=None):
+    def pull_data(self, stock_list, start=datetime.datetime(1990,1,1), end=None):
         """
         Function that pulls data from online resource
         :param stock_list: tuple that stores the name list of stocks
@@ -171,6 +171,14 @@ class StockServer(SQL_Util):
         except:
             raise RuntimeError("Can not create engine for URL: %s" % db_connection_string)
         SQL_Util.__init__(self, engine)
+
+    def init_index_table(self):
+        index_list = {'^GSPC': 'SP500', '^IXIC': 'NASDAQ', '^RUT': 'RUSSEL2000'}
+        index_table = StockOnline().pull_data(index_list.keys())
+        # change table name since sql won't take table name starting with '^'
+        for ticket, table_name in index_list.iteritems():
+            index_table[table_name] = index_table.pop(ticket)
+        self.init_db(index_table)
 
     def init_db(self, stock_table, init_mode='fail'):
         """
