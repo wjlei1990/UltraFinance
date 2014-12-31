@@ -22,7 +22,7 @@ print starttime, endtime
    
 # print stock_table['AAPL']
 
-
+"""
 
 # store data into db
 tosql = StockServer('root', '000539', 'test')
@@ -38,24 +38,28 @@ for stock_name in stock_list:
 tosql.update_db(stock_list)
 
 
+
 stock_list = ('IBM','AAPL')
 onlinedata = StockOnline()
 starttime = datetime.datetime(2014, 1, 1)
 endtime = datetime.datetime(2014,1,10)
 stock_table = onlinedata.pull_data(stock_list, starttime, endtime)
 
-
+"""
 
 starttime = datetime.datetime(2014, 12, 1)
 endtime = datetime.datetime(2014, 12, 20)
 
 #read data out
-fromsql = StockClient('apc524','apc524','stockprice',host='junyic.net')
+fromsql = StockClient('apc524', 'apc524', 'stockprice', host='junyic.net')
 #fromsql = StockClient('root','000539','stock')
-df = fromsql.read_stock_record(stock_list, starttime, endtime)
+#df = fromsql.read_stock_record(stock_list, starttime, endtime)
+dict1, dict2 = fromsql.read_recent_stock_record(stock_list, ndays=20)
 #print sk_table
 print "HHAA"
-print df['AAPL']
-print df['IBM']
+print dict1['AAPL']
+print dict2['AAPL']
+
+fromsql.util.finalize_connection()
 
 

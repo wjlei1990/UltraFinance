@@ -29,6 +29,7 @@ class TestSP500(unittest.TestCase):
         self.sp500.store_to_sql(self.engine)
 
     def test_readsql(self):
+        self.sp500.store_to_sql(self.engine)
         n_stocks = len(self.sp500.stock_info_table)
         self.sp500.read_from_sql(self.engine)
         self.assertEqual(n_stocks, len(self.sp500.stock_info_table), 'Pull method and Read method returns different result')
@@ -65,6 +66,7 @@ class TestStockServer(unittest.TestCase):
         starttime = datetime.datetime(2014, 12, 1)
         endtime = datetime.datetime(2014, 12, 10)
         stock_table = self.stockonline.pull_data(stock_list, starttime, endtime)
+        # print stock_table['AAPL']
         self.stockserver.init_db(stock_table, init_mode='replace')
 
     def test_updatedb(self):
@@ -87,7 +89,7 @@ class TestStockClient(unittest.TestCase):
         endtime = datetime.datetime(2014, 12, 10)
         online_stock_table = self.stockonline.pull_data(stock_list,starttime, endtime)
         sql_stock_table = self.stockclient.read_stock_record(stock_list, starttime, endtime)
-        print sql_stock_table
+        #print sql_stock_table
         self.assertEqual(len(online_stock_table), len(sql_stock_table))
 
 if __name__ == '__main__':

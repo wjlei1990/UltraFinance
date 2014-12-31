@@ -96,7 +96,7 @@ class StockServer(object):
                 print "Data is None...Skip it"
             else:
                 # check if table exists
-                table_exist = self.util.check_one_stock_avail(stock_name)
+                table_exist = self.util.check_one_table_avail(stock_name)
                 print "\tTable exist: %s" % table_exist
                 table_exist = False
                 if not table_exist:
@@ -125,7 +125,7 @@ class StockServer(object):
 
         for stock_name in stock_list:
             print "Update table: %s" %stock_name
-            table_exist = self.util.check_one_stock_avail(stock_name)
+            table_exist = self.util.check_one_table_avail(stock_name)
             print "Table exist: %s" % table_exist
             if table_exist:
                 # get end time
@@ -188,7 +188,7 @@ class StockClient(object):
             stock_list = (stock_list, )
 
         stock_dict = {}
-        bool_dict = self.util.check_stock_list_avail(stock_list)
+        bool_dict = self.util.check_table_list_avail(stock_list)
         for stock in stock_list:
             if bool_dict[stock]:
                 stock_dict[stock] = pandas.io.sql.read_sql(stock, self.engine, index_col='Date')
@@ -221,7 +221,7 @@ class StockClient(object):
 
         for stock_name in stock_list:
             session, stockobj = self.util.build_table_to_sql_mapping(stock_name)
-            if self.util.check_one_stock_avail(stock_name):
+            if self.util.check_one_table_avail(stock_name):
                 # for key in stockobj.__table__.columns:
                 #    print key
 
@@ -244,20 +244,36 @@ class StockClient(object):
         :param endtime:
         :return: stock dict as [stock_name: dataframe, ...]
         """
+        from time import time
         from sqlalchemy import inspect, and_
 
         if isinstance(stock_list, str):
             stock_list = (stock_list, )
 
-        endtime = get_cur_date()
-        starttime = endtime - datetime.timedelta(days=ndays)
+        # stock_dict1 = {}
+        # query method
+        #t1 = time()
+        #for ticket in stock_list:
+        #    query = '(select * from %s ORDER by Date DESC limit %d) ORDER by Date ASC;' %(ticket, ndays)
+        #    stock_dict1[ticket] = pandas.read_sql_query(query, self.engine)
 
-        stock_dict = self.read_stock_record(stock_list, starttime, endtime)
+        # sqlalchemy method
+        #t2 = time()
+        stock_dict2 = {}
+        for ticket in stock_list:
+            session, stockobj = self.util.build_table_to_sql_mapping(ticket)
+            qry = session.query(stockobj).order_by(stockobj.Date.desc()).limit(ndays)
+            stock_dict2[ticket] = self.convert_qry_to_DF(qry, order='reverse')
+        #t3 = time()
+        #print t2-t1, t3-t2
+        #endtime = get_cur_date()
+        #starttime = endtime - datetime.timedelta(days=ndays)
+        #stock_dict = self.read_stock_record(stock_list, starttime, endtime)
 
-        return stock_dict
+        return stock_dict2
 
     @staticmethod
-    def convert_qry_to_DF(qry):
+    def convert_qry_to_DF(qry, order='normal'):
         """
         convert sqlalchemy query into pandas dataframe
         :param qry:
@@ -272,21 +288,37 @@ class StockClient(object):
         stock_table['Close']=[]
         stock_table['Volume']=[]
         stock_table['Adj Close']=[]
-        for idx, entry in enumerate(qry.all()):
-            #print idx, entry.__dict__['Adj Close']
-            stock_table['Open'].append(entry.Open)
-            stock_table['High'].append(entry.High)
-            stock_table['Low'].append(entry.Low)
-            stock_table['Close'].append(entry.Close)
-            stock_table['Volume'].append(entry.Volume)
-            stock_table['Adj Close'].append(entry.__dict__['Adj Close'])
-            index_list.append(entry.Date)
+        print order
+        if order in ('normal', 'Normal'):
+            # transfer in normal mode
+            for idx, entry in enumerate(qry.all()):
+                #print idx, entry.__dict__['Adj Close']
+                stock_table['Open'].append(entry.Open)
+                stock_table['High'].append(entry.High)
+                stock_table['Low'].append(entry.Low)
+                stock_table['Close'].append(entry.Close)
+                stock_table['Volume'].append(entry.Volume)
+                stock_table['Adj Close'].append(entry.__dict__['Adj Close'])
+                index_list.append(entry.Date)
+        elif order in ('reverse', 'Reverse'):
+            # transfer in reverse mode
+            for idx, entry in enumerate(qry.all()):
+                #print idx, entry.__dict__['Adj Close']
+                stock_table['Open'].insert(0, entry.Open)
+                stock_table['High'].insert(0, entry.High)
+                stock_table['Low'].insert(0, entry.Low)
+                stock_table['Close'].insert(0, entry.Close)
+                stock_table['Volume'].insert(0, entry.Volume)
+                stock_table['Adj Close'].insert(0, entry.__dict__['Adj Close'])
+                index_list.insert(0, entry.Date)
+        else:
+            raise ValueError('Input Arg: order wrong')
 
+        df_column_order = ['Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close']
         #convert to DataFrame
-        df=pandas.DataFrame(stock_table, index=index_list)
+        df=pandas.DataFrame(stock_table, index=index_list, columns=df_column_order)
         df.index.name = 'Date'
         return df
-
 
 class SQL_Util(object):
     """
@@ -320,34 +352,35 @@ class SQL_Util(object):
         inspector = inspect(self.engine)
         return inspector.get_table_names()
 
-    def check_stock_list_avail(self, stock_list):
+    def check_table_list_avail(self, table_list):
         """
         Function that checks if the stock_list exist
         :param stock_list: stock name list
         :return: dict of bool value
         """
-        if isinstance(stock_list, str):
-            stock_list = (stock_list, )
-        if not isinstance(stock_list, (list, tuple)):
+        if isinstance(table_list, str):
+            table_list = (table_list, )
+        if not isinstance(table_list, (list, tuple)):
             raise ValueError('Input arg not correct: stock_list should be a tuple or list')
 
         bool_dict = {}
-        db_stock_list = self.list_table_in_db()
-        for stock in stock_list:
-            if stock in db_stock_list:
-                bool_dict[stock] = True
+        db_table_list = self.list_table_in_db()
+        for ticket in table_list:
+            if ticket in db_table_list:
+                bool_dict[ticket] = True
             else:
-                bool_dict[stock] = False
+                bool_dict[ticket] = False
         return bool_dict
 
-    def check_one_stock_avail(self, stock_name):
+    def check_one_table_avail(self, table_name):
         """
         Function that checks if a specific stock exists
         """
-        import pandas.io.sql
-        if not isinstance(stock_name, str):
+        if not isinstance(table_name, str):
             raise ValueError('Input arg is not correct')
-        return pandas.io.sql.has_table(stock_name, self.engine)
+        db_table_list = self.list_table_in_db()
+        bool_value = table_name in db_table_list
+        return bool_value
 
     @staticmethod
     def _map_class_to_some_table_(cls, table, entity_name, **kw):

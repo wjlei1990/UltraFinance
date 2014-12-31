@@ -3,9 +3,11 @@ from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
+SP500_table_name = 'SP500_list'
+
 class SP500_list(Base):
 
-    __tablename__ = 'SP500_list'
+    __tablename__ = SP500_table_name
 
     ticket = Column(String(20), primary_key=True)
     company_name = Column(String(200), nullable=False)
@@ -19,6 +21,9 @@ class SP500_list(Base):
 
     def __repr__(self):
         pass
+
+    def get_table_name(self):
+        return self.__tablename__
 
 
 class sp500(object):
@@ -74,8 +79,11 @@ class sp500(object):
         DB_Session = sessionmaker(bind=engine)
         session = DB_Session()
 
-        #delete old tables
-        session.query(SP500_list).delete()
+        #delete old tables if it exists
+        from StockData import SQL_Util
+        util = SQL_Util(engine)
+        if util.check_one_table_avail(SP500_table_name):
+            session.query(SP500_list).delete()
 
         Base.metadata.create_all(engine)
 
