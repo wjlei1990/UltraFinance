@@ -31,12 +31,16 @@ for stock_name in stock_list:
     stock_table = onlinedata.pull_data(stock_name, starttime, endtime)
     tosql.init_db(stock_table, init_mode='replace')
 
+
 #tosql.finalize_engine()
 #print tosql.get_largest_date('IBM')
 #print tosql.get_largest_date('AAPL')
 
 tosql.update_db(stock_list)
+"""
 
+
+"""
 
 
 stock_list = ('IBM','AAPL')
@@ -47,19 +51,20 @@ stock_table = onlinedata.pull_data(stock_list, starttime, endtime)
 
 """
 
+
 starttime = datetime.datetime(2014, 12, 1)
 endtime = datetime.datetime(2014, 12, 20)
 
 #read data out
-fromsql = StockClient('apc524', 'apc524', 'stockprice', host='junyic.net')
+fromsql = StockClient('root', '000539', 'test')
 #fromsql = StockClient('root','000539','stock')
-#df = fromsql.read_stock_record(stock_list, starttime, endtime)
-dict1, dict2 = fromsql.read_recent_stock_record(stock_list, ndays=20)
+df = fromsql.read_stock_record(stock_list, starttime, endtime)
+
+dict1 = fromsql.read_recent_stock_record(stock_list, ndays=20)
 #print sk_table
 print "HHAA"
 print dict1['AAPL']
-print dict2['AAPL']
+#print dict2['AAPL']
 
-fromsql.util.finalize_connection()
-
+fromsql.finalize_connection()
 
