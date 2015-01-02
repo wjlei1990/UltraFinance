@@ -25,13 +25,14 @@ def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
     adj_close: adjusted close price for the same period
     """
     fromsql   = StockClient('apc524','apc524','stockprice',host='junyic.net')
-    stockdata = fromsql.read_full_stock_record([ticket])
-    stockdata = stockdata[ticket]
-    if stockdata is None:
+    if not fromsql.check_one_table_avail(ticket):
         raise ValueError('Ticket does not exist')
+
+    stockdata = fromsql.read_recent_stock_record(ticket, limit)
+    stockdata = stockdata[ticket]
    
-    adj_close = stockdata['Adj Close']
-    t         = stockdata['Date']
+    adj_close = list(stockdata['Adj Close'])
+    t         = list(stockdata.index)
     if limit > 0:
         try:
             adj_close = adj_close[-(limit+lookback_num-1):]
@@ -40,8 +41,8 @@ def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
             raise IndexError('data too short to calculate volatility: \
                               try smaller lookback_num')
 
-    vol, t = cal_historical_volatility(adj_close, lookback_num, 1,t)
-    return vol, list(t), adj_close
+    vol, t = cal_historical_volatility(adj_close, lookback_num, 1, t)
+    return vol, t, adj_close
 
 
 def cal_historical_volatility(stock_price, lookback_num=30, time_unit=1, date=None):
