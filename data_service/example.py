@@ -26,7 +26,7 @@ print starttime, endtime
 # print stock_table['AAPL']
 
 
-
+"""
 # store data into db
 tosql = StockServer('root', '000539', 'test')
 
@@ -35,7 +35,7 @@ for stock_name in stock_list:
     tosql.init_db(stock_table, init_mode='replace')
 
 tosql.init_index_table()
-
+"""
 """
 #tosql.finalize_engine()
 #print tosql.get_largest_date('IBM')
@@ -56,7 +56,6 @@ stock_table = onlinedata.pull_data(stock_list, starttime, endtime)
 
 """
 
-"""
 starttime = datetime.datetime(2014, 12, 1)
 endtime = datetime.datetime(2014, 12, 20)
 
@@ -68,8 +67,18 @@ df = fromsql.read_stock_record(stock_list, starttime, endtime)
 dict1 = fromsql.read_recent_stock_record(stock_list, ndays=20)
 #print sk_table
 print "HHAA"
-print dict1['AAPL']
+
+print type(df['AAPL'].index)
+
+
+print type(dict1['AAPL'].index)
+
+test_array = dict1['AAPL'].index
+
+print type(test_array)
+
+print test_array
 #print dict2['AAPL']
 
 fromsql.finalize_connection()
-"""
+
