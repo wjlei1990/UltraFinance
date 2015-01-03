@@ -4,13 +4,15 @@
 # sqlalchemy ORM object(SP500_list)
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import engine
 Base = declarative_base()
 
-SP500_table_name = 'SP500_list'
+_SP500_table_name_ = 'SP500_list'
+
 
 class SP500_list(Base):
 
-    __tablename__ = SP500_table_name
+    __tablename__ = _SP500_table_name_
 
     ticket = Column(String(20), primary_key=True)
     company_name = Column(String(200), nullable=False)
@@ -36,9 +38,6 @@ class sp500(object):
         self.method_list = {'finsymbol': self.finsymbol, 'sp500_standard': self.sp500_standard}
         self.pull_data = self.method_list[self.source]
         self.stock_info_table = {}
-
-    #def drop_table(self):
-    #    SP500_list.__table__.
 
     @staticmethod
     def finsymbol():
@@ -76,28 +75,36 @@ class sp500(object):
                 stock_info_table[ticket].append(cell_value)
         self.stock_info_table = stock_info_table
 
+    def get_sp500_ticket_list(self):
+        return self.stock_info_table.keys()
+
     def store_to_sql(self, engine):
 
         from sqlalchemy.orm import sessionmaker
         DB_Session = sessionmaker(bind=engine)
         session = DB_Session()
+        # conn = engine.connect()
 
-        #delete old tables if it exists
-        from StockData import SQL_Util
-        util = SQL_Util(engine)
-        if util.check_one_table_avail(SP500_table_name):
+        # delete old tables if it exists
+        from StockData import SQLUtil
+        from sqlalchemy import text
+        util = SQLUtil(engine)
+        if util.check_one_table_avail(_SP500_table_name_):
+            # cmd = 'delete table ' + _SP500_table_name_
             session.query(SP500_list).delete()
-
-        Base.metadata.create_all(engine)
+        else:
+            Base.metadata.create_all(engine)
+            #Base.metadata.tables[]
 
         for ticket, info in self.stock_info_table.iteritems():
             stock = SP500_list(ticket=ticket, company_name=info[0], sales=info[1],
-                                sales_prior=info[2], oper_per_share=info[3], oper_per_share_prior=info[4],
-                                oper_per_share_rep=info[5], oper_per_share_rep_prior=info[6],
-                                sector=info[7])
+                               sales_prior=info[2], oper_per_share=info[3], oper_per_share_prior=info[4],
+                               oper_per_share_rep=info[5], oper_per_share_rep_prior=info[6],
+                               sector=info[7])
             session.add(stock)
 
         session.commit()
+        session.close()
 
     def read_from_sql(self, engine):
         from sqlalchemy.orm import sessionmaker
@@ -110,7 +117,7 @@ class sp500(object):
             self.stock_info_table[stock.ticket]=[stock.company_name, stock.sales, stock.sales_prior,
                         stock.oper_per_share, stock.oper_per_share_prior, stock.oper_per_share_rep,
                         stock.oper_per_share_rep_prior, stock.sector]
-
+        session.close()
 
 
 

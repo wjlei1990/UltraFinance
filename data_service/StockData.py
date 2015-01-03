@@ -7,17 +7,29 @@ import pandas.io
 import pandas.io.sql
 import sqlalchemy
 
+from SQL_Util import SQLUtil
 
-class SQL_Util(object):
-    """
-    Class that includes:
-    1) how to build connection with database with mysqlalchemy
-    2) query information from db
-    3) other tools
-    """
 
-    def __init__(self, engine):
-        self.engine = engine
+class StockSqlObj(object):
+    """Class used to build mapping from table to sql"""
+    pass
+
+
+class StockSQLUtil(SQLUtil):
+
+    def __init__(self, username, password, database, host="localhost", dialect="mysql",
+                 driver="mysqldb", port="3306"):
+        # a sqlalchemy engine connection URL could be constructed as:
+        # dialect+driver://username:password@host:port/database
+        # engine = sqlalchemy.create_engine('mysql://root:000539@localhost:3306/test')
+
+        db_connection_string = dialect + '+' + driver + '://' + username + ":" + \
+            password + "@" + host + ":" + port + "/" + database
+        try:
+            engine = sqlalchemy.create_engine(db_connection_string)
+        except:
+            raise RuntimeError("Can not create engine for URL: %s" % db_connection_string)
+        SQLUtil.__init__(self, engine)
 
     def get_largest_date(self, stock_name):
         from sqlalchemy.sql import func
@@ -30,59 +42,6 @@ class SQL_Util(object):
         res = qry.one()
         return res.max_date
 
-    def list_table_in_db(self):
-        """
-        Function that shows all the tables in the database
-        :param engine: sqlalchemy engine
-        :return:
-        """
-        from sqlalchemy import inspect
-        inspector = inspect(self.engine)
-        return inspector.get_table_names()
-
-    def check_table_list_avail(self, table_list):
-        """
-        Function that checks if the stock_list exist
-        :param stock_list: stock name list
-        :return: dict of bool value
-        """
-        if isinstance(table_list, str):
-            table_list = (table_list, )
-        if not isinstance(table_list, (list, tuple)):
-            raise ValueError('Input arg not correct: stock_list should be a tuple or list')
-
-        bool_dict = {}
-        db_table_list = self.list_table_in_db()
-        for ticket in table_list:
-            if ticket in db_table_list:
-                bool_dict[ticket] = True
-            else:
-                bool_dict[ticket] = False
-        return bool_dict
-
-    def check_one_table_avail(self, table_name):
-        """
-        Function that checks if a specific stock exists
-        """
-        if not isinstance(table_name, str):
-            raise ValueError('Input arg is not correct')
-        db_table_list = self.list_table_in_db()
-        bool_value = table_name in db_table_list
-        return bool_value
-
-    @staticmethod
-    def _map_class_to_some_table_(cls, table, entity_name, **kw):
-        from sqlalchemy.orm import mapper
-        newcls = type(entity_name, (cls, ), {})
-        mapper(newcls, table, **kw)
-        return newcls
-
-    def create_session(self):
-        from sqlalchemy.orm import sessionmaker
-        session = sessionmaker(bind=self.engine)
-        session = session()
-        return session
-
     def build_table_to_sql_mapping(self, table_name):
         """"""
         from sqlalchemy import MetaData, Table
@@ -90,16 +49,10 @@ class SQL_Util(object):
 
         metadata = MetaData(self.engine)
         stocktable = Table(table_name, metadata, Column("Date", DATETIME, primary_key=True),autoload=True)
-        table_obj = self._map_class_to_some_table_(StockSqlObj, stocktable, table_name)
+        table_obj = self._map_class_to_some_table_(StockSqlObj, stocktable, table_name)\
+
         session = self.create_session()
         return session, table_obj
-
-    def finalize_connection(self):
-        self.engine.dispose()
-
-    @staticmethod
-    def finalize_session(session):
-        session.close()
 
 class StockOnline(object):
     """
@@ -156,29 +109,20 @@ class StockOnline(object):
         return stock_dict
 
 
-class StockServer(SQL_Util):
+class StockServer(StockSQLUtil):
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
                  driver="mysqldb", port="3306"):
-        # a sqlalchemy engine connection URL could be constructed as:
-        # dialect+driver://username:password@host:port/database
-        # engine = sqlalchemy.create_engine('mysql://root:000539@localhost:3306/test')
+        StockSQLUtil.__init__(self,  username, password, database, host=host, dialect=dialect,
+                              driver=driver, port=port)
 
-        db_connection_string = dialect + '+' + driver + '://' + username + ":" + \
-            password + "@" + host + ":" + port + "/" + database
-        try:
-            engine = sqlalchemy.create_engine(db_connection_string)
-        except:
-            raise RuntimeError("Can not create engine for URL: %s" % db_connection_string)
-        SQL_Util.__init__(self, engine)
-
-    def init_index_table(self):
+    def update_index_table(self):
         index_list = {'^GSPC': 'SP500', '^IXIC': 'NASDAQ', '^RUT': 'RUSSEL2000'}
         index_table = StockOnline().pull_data(index_list.keys())
         # change table name since sql won't take table name starting with '^'
         for ticket, table_name in index_list.iteritems():
             index_table[table_name] = index_table.pop(ticket)
-        self.init_db(index_table)
+        self.update_db(index_table)
 
     def init_db(self, stock_table, init_mode='fail'):
         """
@@ -257,24 +201,15 @@ class StockServer(SQL_Util):
                 self.init_db(stock_table)
 
 
-class StockClient(SQL_Util):
+class StockClient(StockSQLUtil):
     """
     Class Client includes method that read all kinds of data from the existing database
     """
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
                  driver="mysqldb", port="3306"):
-        # a sqlalchemy engine connection URL could be constructed as:
-        # dialect+driver://username:password@host:port/database
-        # engine = sqlalchemy.create_engine('mysql://root:000539@localhost:3306/test')
-
-        db_connection_string = dialect + '+' + driver + '://' + username + ":" + \
-            password + "@" + host + ":" + port + "/" + database
-        try:
-            engine = sqlalchemy.create_engine(db_connection_string)
-        except:
-            raise RuntimeError("Can not create engine for URL: %s" % db_connection_string)
-        SQL_Util.__init__(self, engine)
+        StockSQLUtil.__init__(self,  username, password, database, host=host, dialect=dialect,
+                              driver=driver, port=port)
 
     def read_full_record(self, stock_list):
         """
@@ -420,11 +355,6 @@ class StockClient(SQL_Util):
         df=pandas.DataFrame(stock_table, index=index_list, columns=df_column_order)
         df.index.name = 'Date'
         return df
-
-
-class StockSqlObj(object):
-    """Class used to build mapping from table to sql"""
-    pass
 
 def get_cur_date():
     """Get current date. Hour, minute and second will be set to 0"""
