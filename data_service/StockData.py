@@ -100,12 +100,12 @@ class StockOnline(object):
             print "Pull Stock : %s ..." % stock
             try:
                 stock_dict[stock] = web.DataReader(stock, self.source, start, end)
+                if len(stock_dict[stock]) == 0:
+                    print "Length of data is Zero during the time asked"
             except Exception as err_message:
                 stock_dict[stock] = None
                 print "Exception: %s" % err_message
                 # raise RuntimeError("Can't not download Stock: %s" % stock)
-            if len(stock_dict[stock]) == 0:
-                print "Length of data is Zero during the time asked"
         return stock_dict
 
 
