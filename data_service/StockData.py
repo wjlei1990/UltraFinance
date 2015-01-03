@@ -147,9 +147,10 @@ class StockServer(StockSQLUtil):
                 table_exist = False
                 if not table_exist:
                     try:
-                        new_stock_name = stock_name
-                        new_stock_name.replace('^', '_')
-                        stock_data.to_sql(new_stock_name, self.engine, if_exists=init_mode)
+                        # new_stock_name = stock_name
+                        # new_stock_name.replace(r'^', '_')
+                        # print "new_stock_name", new_stock_name
+                        stock_data.to_sql(stock_name, self.engine, if_exists=init_mode)
                         print "\tCreate table in database... %s" % stock_name
                         # print data
                     except:
@@ -189,9 +190,10 @@ class StockServer(StockSQLUtil):
                     # write into db
                     if stock_table[stock_name] is not None:
                         print "Updating..."
-                        new_stock_name = stock_name
-                        new_stock_name.replace('^', '_')
-                        stock_table[stock_name].to_sql(new_stock_name, self.engine, if_exists='append')
+                        # new_stock_name = stock_name
+                        # new_stock_name.replace('^', '_')
+                        # print "new_stock_name: ", new_stock_name
+                        stock_table[stock_name].to_sql(stock_name, self.engine, if_exists='append')
                     else:
                         print "Online Data is None. Skip it."
             else:
