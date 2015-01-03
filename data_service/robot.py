@@ -19,7 +19,7 @@ print "Total number of stocks: %d" % len(ticket_list)
 print ticket_list
 ticketsql.finalize()
 
-#ticket_list = ['AAPL', 'IBM']
+ticket_list = ['AAPL', 'IBM']
 from StockData import StockServer
 tosql = StockServer('root', '000539', 'stock')
 tosql.update_db(ticket_list)
