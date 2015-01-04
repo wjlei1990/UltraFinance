@@ -100,12 +100,12 @@ class StockOnline(object):
             print "Pull Stock : %s ..." % stock
             try:
                 stock_dict[stock] = web.DataReader(stock, self.source, start, end)
+                if len(stock_dict[stock]) == 0:
+                    print "Length of data is Zero during the time asked"
             except Exception as err_message:
                 stock_dict[stock] = None
                 print "Exception: %s" % err_message
                 # raise RuntimeError("Can't not download Stock: %s" % stock)
-            if len(stock_dict[stock]) == 0:
-                print "Length of data is Zero during the time asked"
         return stock_dict
 
 
@@ -117,12 +117,13 @@ class StockServer(StockSQLUtil):
                               driver=driver, port=port)
 
     def update_index_table(self):
-        index_list = {'^GSPC': 'SP500', '^IXIC': 'NASDAQ', '^RUT': 'RUSSEL2000'}
-        index_table = StockOnline().pull_data(index_list.keys())
+        #index_list = {'^GSPC': 'SP500', '^IXIC': 'NASDAQ', '^RUT': 'RUSSEL2000'}
+        index_list = ['^GSPC', '^IXIC', '^RUT']
+        #index_table = StockOnline().pull_data(index_list.keys())
         # change table name since sql won't take table name starting with '^'
-        for ticket, table_name in index_list.iteritems():
-            index_table[table_name] = index_table.pop(ticket)
-        self.update_db(index_table)
+        #for ticket, table_name in index_list.iteritems():
+        #    index_table[table_name] = index_table.pop(ticket)
+        self.update_db(index_list)
 
     def init_db(self, stock_table, init_mode='fail'):
         """
@@ -146,6 +147,9 @@ class StockServer(StockSQLUtil):
                 table_exist = False
                 if not table_exist:
                     try:
+                        # new_stock_name = stock_name
+                        # new_stock_name.replace(r'^', '_')
+                        # print "new_stock_name", new_stock_name
                         stock_data.to_sql(stock_name, self.engine, if_exists=init_mode)
                         print "\tCreate table in database... %s" % stock_name
                         # print data
@@ -186,6 +190,9 @@ class StockServer(StockSQLUtil):
                     # write into db
                     if stock_table[stock_name] is not None:
                         print "Updating..."
+                        # new_stock_name = stock_name
+                        # new_stock_name.replace('^', '_')
+                        # print "new_stock_name: ", new_stock_name
                         stock_table[stock_name].to_sql(stock_name, self.engine, if_exists='append')
                     else:
                         print "Online Data is None. Skip it."
