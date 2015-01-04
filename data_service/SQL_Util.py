@@ -14,6 +14,7 @@ class SQLUtil(object):
         from sqlalchemy import MetaData
         self.engine = engine
         self.metadata = MetaData(self.engine)
+        self.conn = self.engine.connect()
 
     def list_table_in_db(self):
         """
