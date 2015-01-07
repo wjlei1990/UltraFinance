@@ -42,6 +42,7 @@ def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
                               try smaller lookback_num')
 
     vol, t = cal_historical_volatility(adj_close, lookback_num, 1, t)
+    adj_close = adj_close[-len(vol):]
     return vol, t, adj_close
 
 
