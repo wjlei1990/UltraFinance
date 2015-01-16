@@ -11,6 +11,11 @@ class SQLUtil(object):
     """
 
     def __init__(self, engine):
+        """
+        Create connection and other essential stuff
+        :param engine:
+        :return:
+        """
         from sqlalchemy import MetaData
         self.engine = engine
         self.metadata = MetaData(self.engine)
@@ -58,20 +63,41 @@ class SQLUtil(object):
 
     @staticmethod
     def _map_class_to_some_table_(cls, table, entity_name, **kw):
+        """
+        Map the table to class
+        :param cls: class template
+        :param table: table instance in SQLAlchemy
+        :param entity_name: table in the database
+        :param kw:
+        :return: class mapped to the table
+        """
         from sqlalchemy.orm import mapper
         newcls = type(entity_name, (cls, ), {})
         mapper(newcls, table, **kw)
         return newcls
 
     def create_session(self):
+        """
+        Create Session in the SQLAlchemy. Query will be based on Session.
+        :return: SQLAlchemy session
+        """
         from sqlalchemy.orm import sessionmaker
         session = sessionmaker(bind=self.engine)
         session = session()
         return session
 
     def finalize(self):
+        """
+        Finalize the connection to the database, which should be called every time when all the work are finished.
+        :return:
+        """
         self.engine.dispose()
 
     @staticmethod
     def finalize_session(session):
+        """
+        Finalize SQLAlchemy session
+        :param session:
+        :return:
+        """
         session.close()

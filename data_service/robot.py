@@ -1,11 +1,16 @@
 from sp500 import sp500
 
+"""
+Stock Robot
+"""
+
 # get sp500 list
 get_sp500 = sp500()
 get_sp500.pull_data()
 print len(get_sp500.stock_info_table)
 ticket_list = get_sp500.get_sp500_ticket_list()
 print ticket_list
+
 
 root_user     = 'apc524'
 root_passwd   = 'apc524'

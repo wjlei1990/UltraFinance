@@ -4,13 +4,18 @@
 # sqlalchemy ORM object(SP500_list)
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import engine
+import urllib
+import xlrd
+
 Base = declarative_base()
 
 _SP500_table_name_ = 'SP500_list'
 
 
 class SP500_list(Base):
+    """
+    Class that defines the table structure
+    """
 
     __tablename__ = _SP500_table_name_
 
@@ -41,6 +46,10 @@ class sp500(object):
 
     @staticmethod
     def finsymbol():
+        """
+        Pull S&P500 symbol list using finsymbol package. This method is not recommended because of stability issue.
+        :return: S&P500 list
+        """
         import finsymbols
         stock_list = []
         stock_info = finsymbols.get_sp500_symbols()
@@ -49,13 +58,14 @@ class sp500(object):
         return stock_list
 
     def sp500_standard(self):
-        import urllib
-
+        """
+        Pull S&P500 list from spindices official website. It download a xls file and using xlrd to parse it
+        :return:
+        """
         stock_info_table = {}
         source = "http://www.spindices.com/documents/additional-material/sp-500-eps-est.xlsx?force_download=true"
         xlspath = '/tmp/sp500.xls'
         urllib.urlretrieve(source, xlspath)
-        import xlrd
         stockxls = xlrd.open_workbook(xlspath)
 
         # print workbook.sheet_names()
@@ -79,6 +89,11 @@ class sp500(object):
         return self.stock_info_table.keys()
 
     def store_to_sql(self, engine):
+        """
+        Store the ticket list to SQL database
+        :param engine: SQLAlchemy connection
+        :return:
+        """
 
         from sqlalchemy.orm import sessionmaker
         DB_Session = sessionmaker(bind=engine)
@@ -107,6 +122,11 @@ class sp500(object):
         session.close()
 
     def read_from_sql(self, engine):
+        """
+        Read ticket table from database.
+        :param engine: SQLAlchemy engine
+        :return:
+        """
         from sqlalchemy.orm import sessionmaker
         DB_Session = sessionmaker(bind=engine)
         session = DB_Session()
@@ -118,18 +138,3 @@ class sp500(object):
                         stock.oper_per_share, stock.oper_per_share_prior, stock.oper_per_share_rep,
                         stock.oper_per_share_rep_prior, stock.sector]
         session.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

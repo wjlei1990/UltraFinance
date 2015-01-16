@@ -16,9 +16,14 @@ class StockSqlObj(object):
 
 
 class StockSQLUtil(SQLUtil):
+    """Class that creates the mapping between stock data class and table"""
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
                  driver="mysqldb", port="3306"):
+        """
+        Create connection to database. Usually, you need to specify username, password and database name you want work
+        with. If you want to work with remote database, please set the host to the IP address of the remote db.
+        """
         # a sqlalchemy engine connection URL could be constructed as:
         # dialect+driver://username:password@host:port/database
         # engine = sqlalchemy.create_engine('mysql://root:000539@localhost:3306/test')
@@ -32,6 +37,11 @@ class StockSQLUtil(SQLUtil):
         SQLUtil.__init__(self, engine)
 
     def get_largest_date(self, stock_name):
+        """
+        The the largest data of stocks storing in the db
+        :param stock_name: the stock your want to check
+        :return: largest(latest) data of that stock
+        """
         from sqlalchemy.sql import func
 
         if not isinstance(stock_name, str):
@@ -43,7 +53,11 @@ class StockSQLUtil(SQLUtil):
         return res.max_date
 
     def build_table_to_sql_mapping(self, table_name):
-        """"""
+        """
+        Autoload the table setting in db to the class
+        :param table_name: table you want to load
+        :returns: SQLAlchemy sessions and the mapping class
+        """
         from sqlalchemy import MetaData, Table
         from sqlalchemy import Column, DATETIME
 
@@ -59,6 +73,10 @@ class StockOnline(object):
     Class Server includes methods that pull data from online resource and store them into database
     """
     def __init__(self, source='yahoo'):
+        """
+        :param source: the online source that you are going to use. Supported sources includes yahoo, google and fred
+        :return:
+        """
         if source not in ['yahoo', 'google', 'fred']:
             raise ValueError('Current Source only supports: yahoo, google and fred')
         self.source = source
@@ -66,7 +84,9 @@ class StockOnline(object):
             raise RuntimeError("Source Not Valid %s" % self.source)
 
     def __validate_source_connection__(self):
-        """ Check internet connection """
+        """
+        Check internet connection
+        """
         test_stock='AAPL'
         # set start and end time
         start = datetime.datetime(2012, 1, 1)
@@ -113,10 +133,25 @@ class StockServer(StockSQLUtil):
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
                  driver="mysqldb", port="3306"):
+        """
+        See StockSQLUtil.__init___
+        :param username: username used to connect the database
+        :param password: password used to connect the database
+        :param database: database name
+        :param host: hostname. "localhost" is default value. If you want to use remote database, specify it as IP address
+        :param dialect:
+        :param driver:
+        :param port:
+        :return:
+        """
         StockSQLUtil.__init__(self,  username, password, database, host=host, dialect=dialect,
                               driver=driver, port=port)
 
     def update_index_table(self):
+        """
+        Add NYSDEQ, S&P500 and RUSSEL2000 index into the database
+        :return: None
+        """
         #index_list = {'^GSPC': 'SP500', '^IXIC': 'NASDAQ', '^RUT': 'RUSSEL2000'}
         index_list = ['^GSPC', '^IXIC', '^RUT']
         #index_table = StockOnline().pull_data(index_list.keys())
@@ -127,9 +162,10 @@ class StockServer(StockSQLUtil):
 
     def init_db(self, stock_table, init_mode='fail'):
         """
-        Function that init all the stock data(pandas DataFrame)into sql
-        :param engine: sqlalchemy engine
-        :param init_mode: to_sql if_exist variable
+        Init table in database
+        :param stock_table: ticket list that you want to add into the database
+        :param init_mode: The 'fail' mode will stop updating if the table already exist; The 'Replace' mode will replace
+        the old table with new table
         :return:
         """
         if not isinstance(stock_table, dict):
@@ -160,12 +196,12 @@ class StockServer(StockSQLUtil):
 
     def update_db(self, stock_list):
         """
-        Function that updates the database to current date
-        :param engine:
-        :return:
+        Update the table in the database. If the stock you specify does not exist in the database, it will create a
+        new table in the database. Otherwise, it just update the existing table
+        :param stock_list: the stock list you want to update
         """
-        print "\n++++++++++++++++++\nUpdate Table Service"
 
+        print "\n++++++++++++++++++\nUpdate Table Service"
         # change the stock_name into tuple if it is a string
         if isinstance(stock_list, str):
             stock_list = (stock_list, )
@@ -221,7 +257,7 @@ class StockClient(StockSQLUtil):
     def read_full_record(self, stock_list):
         """
         Function that pulls the the full record of stocks in the list.
-        Attention: the return df is different from other methods(pull_data, or read part). The \
+        Attention -- the return df is different from other methods(pull_data, or read part). The \
                 method we us is from pandas. Have no idea what is happening inside. The \
                 read_stock_record method is more recommended
         :param stock_list: list that stores the stock names
@@ -281,7 +317,7 @@ class StockClient(StockSQLUtil):
 
     def read_recent_stock_record(self, stock_list, ndays=90):
         """
-        Read stock data from database for previous ndays
+        Read stock data from database from previous ndays
         :param stock_list:
         :param starttime:
         :param endtime:

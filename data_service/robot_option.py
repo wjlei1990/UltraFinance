@@ -1,4 +1,7 @@
 from sp500 import sp500
+"""
+Option Robot
+"""
 
 # get sp500 list
 get_sp500 = sp500()
@@ -13,9 +16,16 @@ ticketsql = TicketListSQLUtil('apc524', 'apc524', 'optionprice', host='junyic.ne
 ticketsql.update_sql(ticket_list)
 ticketsql.finalize()
 
+# read in the updated ticket list in db
+ticketsql.read_from_sql()
+ticket_list = ticketsql.ticket_table
+print "Total number of stocks: %d" % len(ticket_list)
+print ticket_list
+ticketsql.finalize()
+
 from option import OptionScraper, OptionServer
 
-ticket_list=['AAPL', 'IBM']
+#ticket_list=['AAPL', 'IBM']
 optionsql=OptionServer('apc524', 'apc524', 'optionprice', host='junyic.net')
 optionsql.update_db(ticket_list)
 print optionsql.get_largest_quote_time('AAPL')

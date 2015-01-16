@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Table, MetaData
 import sqlalchemy
 import datetime
+import math
 
 from pandas.io.data import Options
 from sqlalchemy import *
@@ -36,6 +37,11 @@ class OptionScraper(object):
             return False
 
     def pull_data(self, ticket_list):
+        """
+        Pull online option data
+        :param ticket_list: list contains tickets you want to download
+        :return: option data dict, in the form of [ ticket : DataFrame, ... ]
+        """
         if isinstance(ticket_list, str):
             ticket_list = (ticket_list, )
 
@@ -58,6 +64,17 @@ class OptionSQLUtil(SQLUtil):
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
                  driver="mysqldb", port="3306"):
+        """
+        See StockSQLUtil.__init___
+        :param username: username used to connect the database
+        :param password: password used to connect the database
+        :param database: database name
+        :param host: hostname. "localhost" is default value. If you want to use remote database, specify it as IP address
+        :param dialect:
+        :param driver:
+        :param port:
+        :return:
+        """
         # a sqlalchemy engine connection URL could be constructed as:
         # dialect+driver://username:password@host:port/database
         # engine = sqlalchemy.create_engine('mysql://root:000539@localhost:3306/test')
@@ -71,7 +88,11 @@ class OptionSQLUtil(SQLUtil):
         SQLUtil.__init__(self, engine)
 
     def create_option_table(self, table_name=None):
-
+        """
+        Create option table in the database
+        :param table_name: the name of table you want to create
+        :return: SQLAlchemy table instance
+        """
         if not isinstance(table_name, str):
             raise ValueError('Table name can not be None')
 
@@ -97,7 +118,8 @@ class OptionSQLUtil(SQLUtil):
                          Column('Root', String(100)),
                          Column('IsNonstandard', String(100)),
                          Column('Underlying', String(100)),
-                         Column('Underlying_Price', Float))
+                         Column('Underlying_Price', Float),
+                         extend_existing=True )
         return my_table
 
     class SqlObj(object):
@@ -105,7 +127,9 @@ class OptionSQLUtil(SQLUtil):
         pass
 
     def build_table_to_sql_mapping(self, table_name, table_class):
-        """"""
+        """
+        Build mapping between class and option table
+        """
         from sqlalchemy import MetaData, Table
         from sqlalchemy import Column, DATETIME
 
@@ -115,6 +139,11 @@ class OptionSQLUtil(SQLUtil):
         return session, table_obj
 
     def get_largest_quote_time(self, table_name):
+        """
+        Get the latest quote time of option data. The time will be used to check the up-to-date status of the table.
+        :param table_name: the name of the option table
+        :return:
+        """
         from sqlalchemy.sql import func
 
         if not isinstance(table_name, str):
@@ -135,6 +164,12 @@ class OptionServer(OptionSQLUtil):
                                driver=driver, port=port)
 
     def update_db(self, ticket_list):
+        """
+        Update the Option table. If the ticket you specify does not exist, it will create the new table and write data
+        ; Otherwise, it will just update the table.
+        :param ticket_list: ticket list you want to update
+        :return:
+        """
         print "\n++++++++++++++++++\nUpdate Table Service"
 
         # change the stock_name into tuple if it is a string
@@ -163,7 +198,7 @@ class OptionServer(OptionSQLUtil):
                     print "Get data..."
                     option_dict = onlinedata.pull_data(ticket)
                     # write into db
-                    if option_dict[dict] is not None:
+                    if option_dict[ticket] is not None:
                         print "Updating..."
                         self.option_to_sql(ticket, option_dict[ticket], if_exist='append')
                     else:
@@ -182,9 +217,18 @@ class OptionServer(OptionSQLUtil):
                 # option_table = self.create_option_table(ticket)
                 # option_table.create(self.engine)
                 print 'Updating database...'
-                self.option_to_sql(ticket, option_dict[ticket])
+                if option_dict[ticket] is not None:
+                    self.option_to_sql(ticket, option_dict[ticket])
 
     def option_to_sql(self, ticket, option_df, if_exist='fail'):
+        """
+        Write option DataFrame into Database
+        :param ticket: ticket name
+        :param option_df: option DataFrame
+        :param if_exist: update mode. If 'fail' is specified, operation will be terminated if the table already exist;
+        if 'replace', table will be replaced anyway; if 'append', data will be append
+        :return:
+        """
 
         from sqlalchemy.orm import mapper
         if not isinstance(ticket, str):
@@ -222,23 +266,28 @@ class OptionServer(OptionSQLUtil):
             values = option_df.values[i]
 
             trans = self.conn.begin()
-            try:
-                ins = option_table.insert().values(Quote_Time=option_df.values[i][12], Strike=option_df.index.values[i][0],
+            if math.isnan(values[11]):
+                continue
+            else:
+                try:
+                    ins = option_table.insert().values(Quote_Time=option_df.values[i][12], Strike=option_df.index.values[i][0],
                                                    Expiry=option_df.index.values[i][1], Type=option_df.index.values[i][2],
                                                    Last=values[0], Bid=values[1], Ask=values[2], Chg=values[3], PctChg=values[4],
                                                    Vol=values[5], Open_Int=values[6], IV=values[7], Root=values[8],
                                                    IsNonstandard=values[9], Underlying=values[10], Underlying_Price=values[11])
-                self.conn.execute(ins)
-                trans.commit()
-            except:
-                trans.rollback()
-                raise
-
+                    self.conn.execute(ins)
+                    trans.commit()
+                except:
+                    trans.rollback()
+                    raise
         #session.commit()
         #session.close()
 
 
 class OptionClient(OptionSQLUtil):
+    """
+    Class that contains read methods. Not yet implemented in this branch.
+    """
 
     def __init__(self, username, password, database, host="localhost", dialect="mysql",
                  driver="mysqldb", port="3306"):
@@ -256,6 +305,14 @@ def get_cur_date():
 
 
 def compare_date(date1, date2):
+    """
+    Compare two date
+    :param date1:
+    :param date2:
+    :return: 0 stands for the same; -1 stands for date1 < date2; 1 stands for date1 > date2
+    """
+    if date1 is None:
+        return -1
     temp_date1=datetime.datetime(date1.year, date1.month, date1.day)
     temp_date2=datetime.datetime(date2.year, date2.month, date2.day)
     if temp_date1 < temp_date2:
