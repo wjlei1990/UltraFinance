@@ -1,0 +1,1988 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>data_service package &mdash; UltraFinance 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="UltraFinance 0.0.1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">UltraFinance 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="data-service-package">
+<h1>data_service package<a class="headerlink" href="#data-service-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-data_service.SQL_Util">
+<span id="data-service-sql-util-module"></span><h2>data_service.SQL_Util module<a class="headerlink" href="#module-data_service.SQL_Util" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="data_service.SQL_Util.SQLUtil">
+<em class="property">class </em><tt class="descclassname">data_service.SQL_Util.</tt><tt class="descname">SQLUtil</tt><big>(</big><em>engine</em><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Class that includes:
+1) how to build connection with database with mysqlalchemy
+2) query information from db
+3) other tools</p>
+<dl class="method">
+<dt id="data_service.SQL_Util.SQLUtil.check_one_table_avail">
+<tt class="descname">check_one_table_avail</tt><big>(</big><em>table_name</em><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil.check_one_table_avail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that checks if a specific stock exists</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.SQL_Util.SQLUtil.check_table_list_avail">
+<tt class="descname">check_table_list_avail</tt><big>(</big><em>table_list</em><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil.check_table_list_avail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that checks if the stock_list exist
+:param stock_list: stock name list
+:return: dict of bool value</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.SQL_Util.SQLUtil.create_session">
+<tt class="descname">create_session</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil.create_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Session in the SQLAlchemy. Query will be based on Session.
+:return: SQLAlchemy session</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.SQL_Util.SQLUtil.finalize">
+<tt class="descname">finalize</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalize the connection to the database, which should be called every time when all the work are finished.
+:return:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="data_service.SQL_Util.SQLUtil.finalize_session">
+<em class="property">static </em><tt class="descname">finalize_session</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil.finalize_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalize SQLAlchemy session
+:param session:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.SQL_Util.SQLUtil.list_table_in_db">
+<tt class="descname">list_table_in_db</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.SQL_Util.SQLUtil.list_table_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that shows all the tables in the database
+:param engine: sqlalchemy engine
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_service.StockData">
+<span id="data-service-stockdata-module"></span><h2>data_service.StockData module<a class="headerlink" href="#module-data_service.StockData" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="data_service.StockData.StockClient">
+<em class="property">class </em><tt class="descclassname">data_service.StockData.</tt><tt class="descname">StockClient</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.StockData.StockSQLUtil" title="data_service.StockData.StockSQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.StockData.StockSQLUtil</span></tt></a></p>
+<p>Class Client includes method that read all kinds of data from the existing database</p>
+<dl class="staticmethod">
+<dt id="data_service.StockData.StockClient.convert_qry_to_DF">
+<em class="property">static </em><tt class="descname">convert_qry_to_DF</tt><big>(</big><em>qry</em>, <em>order='normal'</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockClient.convert_qry_to_DF" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert sqlalchemy query into pandas dataframe
+:param qry:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.StockData.StockClient.read_full_record">
+<tt class="descname">read_full_record</tt><big>(</big><em>stock_list</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockClient.read_full_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that pulls the the full record of stocks in the list.
+Attention &#8211; the return df is different from other methods(pull_data, or read part). The                 method we us is from pandas. Have no idea what is happening inside. The                 read_stock_record method is more recommended
+:param stock_list: list that stores the stock names
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.StockData.StockClient.read_recent_stock_record">
+<tt class="descname">read_recent_stock_record</tt><big>(</big><em>stock_list</em>, <em>ndays=90</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockClient.read_recent_stock_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read stock data from database from previous ndays
+:param stock_list:
+:param starttime:
+:param endtime:
+:return: stock dict as [stock_name: dataframe, ...]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.StockData.StockClient.read_stock_record">
+<tt class="descname">read_stock_record</tt><big>(</big><em>stock_list</em>, <em>starttime=None</em>, <em>endtime=None</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockClient.read_stock_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read stock data from database based on user&#8217;s request
+:param stock_list:
+:param starttime:
+:param endtime:
+:return: stock dict as [stock_name: dataframe, ...]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.StockData.StockOnline">
+<em class="property">class </em><tt class="descclassname">data_service.StockData.</tt><tt class="descname">StockOnline</tt><big>(</big><em>source='yahoo'</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockOnline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Class Server includes methods that pull data from online resource and store them into database</p>
+<dl class="method">
+<dt id="data_service.StockData.StockOnline.pull_data">
+<tt class="descname">pull_data</tt><big>(</big><em>stock_list</em>, <em>start=datetime.datetime(1990</em>, <em>1</em>, <em>1</em>, <em>0</em>, <em>0)</em>, <em>end=None</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockOnline.pull_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that pulls data from online resource
+:param stock_list: tuple that stores the name list of stocks
+:param start: start time
+:param end: end time
+:return: dict as [stock_name: DataFrame, ... ]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.StockData.StockSQLUtil">
+<em class="property">class </em><tt class="descclassname">data_service.StockData.</tt><tt class="descname">StockSQLUtil</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockSQLUtil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.SQL_Util.SQLUtil" title="data_service.SQL_Util.SQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.SQL_Util.SQLUtil</span></tt></a></p>
+<p>Class that creates the mapping between stock data class and table</p>
+<dl class="method">
+<dt id="data_service.StockData.StockSQLUtil.build_table_to_sql_mapping">
+<tt class="descname">build_table_to_sql_mapping</tt><big>(</big><em>table_name</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockSQLUtil.build_table_to_sql_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoload the table setting in db to the class
+:param table_name: table you want to load
+:returns: SQLAlchemy sessions and the mapping class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.StockData.StockSQLUtil.get_largest_date">
+<tt class="descname">get_largest_date</tt><big>(</big><em>stock_name</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockSQLUtil.get_largest_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>The the largest data of stocks storing in the db
+:param stock_name: the stock your want to check
+:return: largest(latest) data of that stock</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.StockData.StockServer">
+<em class="property">class </em><tt class="descclassname">data_service.StockData.</tt><tt class="descname">StockServer</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.StockData.StockSQLUtil" title="data_service.StockData.StockSQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.StockData.StockSQLUtil</span></tt></a></p>
+<dl class="method">
+<dt id="data_service.StockData.StockServer.init_db">
+<tt class="descname">init_db</tt><big>(</big><em>stock_table</em>, <em>init_mode='fail'</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockServer.init_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init table in database
+:param stock_table: ticket list that you want to add into the database
+:param init_mode: The &#8216;fail&#8217; mode will stop updating if the table already exist; The &#8216;Replace&#8217; mode will replace
+the old table with new table
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.StockData.StockServer.update_db">
+<tt class="descname">update_db</tt><big>(</big><em>stock_list</em><big>)</big><a class="headerlink" href="#data_service.StockData.StockServer.update_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the table in the database. If the stock you specify does not exist in the database, it will create a
+new table in the database. Otherwise, it just update the existing table
+:param stock_list: the stock list you want to update</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.StockData.StockServer.update_index_table">
+<tt class="descname">update_index_table</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.StockData.StockServer.update_index_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add NYSDEQ, S&amp;P500 and RUSSEL2000 index into the database
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.StockData.StockSqlObj">
+<em class="property">class </em><tt class="descclassname">data_service.StockData.</tt><tt class="descname">StockSqlObj</tt><a class="headerlink" href="#data_service.StockData.StockSqlObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Class used to build mapping from table to sql</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.StockData.get_cur_date">
+<tt class="descclassname">data_service.StockData.</tt><tt class="descname">get_cur_date</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.StockData.get_cur_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current date. Hour, minute and second will be set to 0</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_service.TicketListUtil">
+<span id="data-service-ticketlistutil-module"></span><h2>data_service.TicketListUtil module<a class="headerlink" href="#module-data_service.TicketListUtil" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="data_service.TicketListUtil.TicketList">
+<em class="property">class </em><tt class="descclassname">data_service.TicketListUtil.</tt><tt class="descname">TicketList</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.TicketListUtil.TicketList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></tt></p>
+<p>Class that defines the ticket list table structure</p>
+<dl class="attribute">
+<dt id="data_service.TicketListUtil.TicketList.ticket">
+<tt class="descname">ticket</tt><a class="headerlink" href="#data_service.TicketListUtil.TicketList.ticket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.TicketListUtil.TicketListSQLUtil">
+<em class="property">class </em><tt class="descclassname">data_service.TicketListUtil.</tt><tt class="descname">TicketListSQLUtil</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.TicketListUtil.TicketListSQLUtil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.SQL_Util.SQLUtil" title="data_service.SQL_Util.SQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.SQL_Util.SQLUtil</span></tt></a></p>
+<dl class="method">
+<dt id="data_service.TicketListUtil.TicketListSQLUtil.create_ticket_table">
+<tt class="descname">create_ticket_table</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.TicketListUtil.TicketListSQLUtil.create_ticket_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the ticket table in the database
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.TicketListUtil.TicketListSQLUtil.finalize">
+<tt class="descname">finalize</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.TicketListUtil.TicketListSQLUtil.finalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.TicketListUtil.TicketListSQLUtil.read_from_sql">
+<tt class="descname">read_from_sql</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.TicketListUtil.TicketListSQLUtil.read_from_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read ticket list from the database
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.TicketListUtil.TicketListSQLUtil.update_sql">
+<tt class="descname">update_sql</tt><big>(</big><em>all_ticket_list</em><big>)</big><a class="headerlink" href="#data_service.TicketListUtil.TicketListSQLUtil.update_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update ticket list in the database
+:param all_ticket_list: Your ticket list pool. Every ticket will be checked. If exists, then the ticket won&#8217;t
+be added in; otherwise, the new ticket name will be added in the list.
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_service.option">
+<span id="data-service-option-module"></span><h2>data_service.option module<a class="headerlink" href="#module-data_service.option" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="data_service.option.OptionClient">
+<em class="property">class </em><tt class="descclassname">data_service.option.</tt><tt class="descname">OptionClient</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.option.OptionClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.option.OptionSQLUtil" title="data_service.option.OptionSQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.option.OptionSQLUtil</span></tt></a></p>
+<p>Class that contains read methods. Not yet implemented in this branch.</p>
+<dl class="method">
+<dt id="data_service.option.OptionClient.read_option_record">
+<tt class="descname">read_option_record</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.option.OptionClient.read_option_record" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.option.OptionSQLUtil">
+<em class="property">class </em><tt class="descclassname">data_service.option.</tt><tt class="descname">OptionSQLUtil</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.option.OptionSQLUtil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.SQL_Util.SQLUtil" title="data_service.SQL_Util.SQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.SQL_Util.SQLUtil</span></tt></a></p>
+<dl class="class">
+<dt id="data_service.option.OptionSQLUtil.SqlObj">
+<em class="property">class </em><tt class="descname">SqlObj</tt><a class="headerlink" href="#data_service.option.OptionSQLUtil.SqlObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Class used to build mapping from table to sql</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.option.OptionSQLUtil.build_table_to_sql_mapping">
+<tt class="descclassname">OptionSQLUtil.</tt><tt class="descname">build_table_to_sql_mapping</tt><big>(</big><em>table_name</em>, <em>table_class</em><big>)</big><a class="headerlink" href="#data_service.option.OptionSQLUtil.build_table_to_sql_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build mapping between class and option table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.option.OptionSQLUtil.create_option_table">
+<tt class="descclassname">OptionSQLUtil.</tt><tt class="descname">create_option_table</tt><big>(</big><em>table_name=None</em><big>)</big><a class="headerlink" href="#data_service.option.OptionSQLUtil.create_option_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create option table in the database
+:param table_name: the name of table you want to create
+:return: SQLAlchemy table instance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.option.OptionSQLUtil.get_largest_quote_time">
+<tt class="descclassname">OptionSQLUtil.</tt><tt class="descname">get_largest_quote_time</tt><big>(</big><em>table_name</em><big>)</big><a class="headerlink" href="#data_service.option.OptionSQLUtil.get_largest_quote_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the latest quote time of option data. The time will be used to check the up-to-date status of the table.
+:param table_name: the name of the option table
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.option.OptionScraper">
+<em class="property">class </em><tt class="descclassname">data_service.option.</tt><tt class="descname">OptionScraper</tt><big>(</big><em>source='yahoo'</em>, <em>check_connection=False</em><big>)</big><a class="headerlink" href="#data_service.option.OptionScraper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Class includes methods that pull data from online resource</p>
+<dl class="method">
+<dt id="data_service.option.OptionScraper.pull_data">
+<tt class="descname">pull_data</tt><big>(</big><em>ticket_list</em><big>)</big><a class="headerlink" href="#data_service.option.OptionScraper.pull_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull online option data
+:param ticket_list: list contains tickets you want to download
+:return: option data dict, in the form of [ ticket : DataFrame, ... ]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.option.OptionServer">
+<em class="property">class </em><tt class="descclassname">data_service.option.</tt><tt class="descname">OptionServer</tt><big>(</big><em>username</em>, <em>password</em>, <em>database</em>, <em>host='localhost'</em>, <em>dialect='mysql'</em>, <em>driver='mysqldb'</em>, <em>port='3306'</em><big>)</big><a class="headerlink" href="#data_service.option.OptionServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#data_service.option.OptionSQLUtil" title="data_service.option.OptionSQLUtil"><tt class="xref py py-class docutils literal"><span class="pre">data_service.option.OptionSQLUtil</span></tt></a></p>
+<dl class="method">
+<dt id="data_service.option.OptionServer.option_to_sql">
+<tt class="descname">option_to_sql</tt><big>(</big><em>ticket</em>, <em>option_df</em>, <em>if_exist='fail'</em><big>)</big><a class="headerlink" href="#data_service.option.OptionServer.option_to_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write option DataFrame into Database
+:param ticket: ticket name
+:param option_df: option DataFrame
+:param if_exist: update mode. If &#8216;fail&#8217; is specified, operation will be terminated if the table already exist;
+if &#8216;replace&#8217;, table will be replaced anyway; if &#8216;append&#8217;, data will be append
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.option.OptionServer.update_db">
+<tt class="descname">update_db</tt><big>(</big><em>ticket_list</em><big>)</big><a class="headerlink" href="#data_service.option.OptionServer.update_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the Option table. If the ticket you specify does not exist, it will create the new table and write data
+; Otherwise, it will just update the table.
+:param ticket_list: ticket list you want to update
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.and_">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">and_</tt><big>(</big><em>*clauses</em><big>)</big><a class="headerlink" href="#data_service.option.and_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a conjunction of expressions joined by <tt class="docutils literal"><span class="pre">AND</span></tt>.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">and_</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">and_</span><span class="p">(</span>
+                    <span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">,</span>
+                    <span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">enrolled</span> <span class="o">==</span> <span class="bp">True</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.and_" title="data_service.option.and_"><tt class="xref py py-func docutils literal"><span class="pre">and_()</span></tt></a> conjunction is also available using the
+Python <tt class="docutils literal"><span class="pre">&amp;</span></tt> operator (though note that compound expressions
+need to be parenthesized in order to function with Python
+operator precedence behavior):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">)</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">enrolled</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.and_" title="data_service.option.and_"><tt class="xref py py-func docutils literal"><span class="pre">and_()</span></tt></a> operation is also implicit in some cases;
+the <tt class="xref py py-meth docutils literal"><span class="pre">Select.where()</span></tt> method for example can be invoked multiple
+times against a statement, which will have the effect of each
+clause being combined using <a class="reference internal" href="#data_service.option.and_" title="data_service.option.and_"><tt class="xref py py-func docutils literal"><span class="pre">and_()</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span>\
+            <span class="n">where</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">)</span><span class="o">.</span>\
+            <span class="n">where</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">enrolled</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#data_service.option.or_" title="data_service.option.or_"><tt class="xref py py-func docutils literal"><span class="pre">or_()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.asc">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">asc</tt><big>(</big><em>column</em><big>)</big><a class="headerlink" href="#data_service.option.asc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce an ascending <tt class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></tt> clause element.</p>
+<p>e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">asc</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">asc</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>will produce SQL as:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user ORDER BY name ASC
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.asc" title="data_service.option.asc"><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></a> function is a standalone version of the
+<tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.asc()</span></tt> method available on all SQL expressions,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">asc</span><span class="p">())</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> (e.g. scalar SQL expression)
+with which to apply the <a class="reference internal" href="#data_service.option.asc" title="data_service.option.asc"><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></a> operation.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="#data_service.option.desc" title="data_service.option.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullsfirst()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullslast()</span></tt></p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">Select.order_by()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.bindparam">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">bindparam</tt><big>(</big><em>key</em>, <em>value=symbol('NO_ARG')</em>, <em>type_=None</em>, <em>unique=False</em>, <em>required=symbol('NO_ARG')</em>, <em>quote=None</em>, <em>callable_=None</em>, <em>isoutparam=False</em>, <em>_compared_to_operator=None</em>, <em>_compared_to_type=None</em><big>)</big><a class="headerlink" href="#data_service.option.bindparam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a &#8220;bound expression&#8221;.</p>
+<p>The return value is an instance of <tt class="xref py py-class docutils literal"><span class="pre">BindParameter</span></tt>; this
+is a <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> subclass which represents a so-called
+&#8220;placeholder&#8221; value in a SQL expression, the value of which is
+supplied at the point at which the statement in executed against a
+database connection.</p>
+<p>In SQLAlchemy, the <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> construct has
+the ability to carry along the actual value that will be ultimately
+used at expression time.  In this way, it serves not just as
+a &#8220;placeholder&#8221; for eventual population, but also as a means of
+representing so-called &#8220;unsafe&#8221; values which should not be rendered
+directly in a SQL statement, but rather should be passed along
+to the <em class="xref std std-term">DBAPI</em> as values which need to be correctly escaped
+and potentially handled for type-safety.</p>
+<p>When using <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> explicitly, the use case is typically
+one of traditional deferment of parameters; the <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a>
+construct accepts a name which can then be referred to at execution
+time:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">bindparam</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span>\
+            <span class="n">where</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">bindparam</span><span class="p">(</span><span class="s">&#39;username&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The above statement, when rendered, will produce SQL similar to:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user WHERE name = :username
+</pre></div>
+</div>
+<p>In order to populate the value of <tt class="docutils literal"><span class="pre">:username</span></tt> above, the value
+would typically be applied at execution time to a method
+like <tt class="xref py py-meth docutils literal"><span class="pre">Connection.execute()</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s">&#39;wendy&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Explicit use of <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> is also common when producing
+UPDATE or DELETE statements that are to be invoked multiple times,
+where the WHERE criterion of the statement is to change on each
+invocation, such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">update</span><span class="p">()</span><span class="o">.</span>
+        <span class="n">where</span><span class="p">(</span><span class="n">user_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">bindparam</span><span class="p">(</span><span class="s">&#39;username&#39;</span><span class="p">))</span><span class="o">.</span>
+        <span class="n">values</span><span class="p">(</span><span class="n">fullname</span><span class="o">=</span><span class="n">bindparam</span><span class="p">(</span><span class="s">&#39;fullname&#39;</span><span class="p">))</span>
+        <span class="p">)</span>
+
+<span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="n">stmt</span><span class="p">,</span> <span class="p">[{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="s">&quot;wendy&quot;</span><span class="p">,</span> <span class="s">&quot;fullname&quot;</span><span class="p">:</span> <span class="s">&quot;Wendy Smith&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="s">&quot;jack&quot;</span><span class="p">,</span> <span class="s">&quot;fullname&quot;</span><span class="p">:</span> <span class="s">&quot;Jack Jones&quot;</span><span class="p">},</span>
+           <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>SQLAlchemy&#8217;s Core expression system makes wide use of
+<a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> in an implicit sense.   It is typical that Python
+literal values passed to virtually all SQL expression functions are
+coerced into fixed <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> constructs.  For example, given
+a comparison operation such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">expr</span> <span class="o">=</span> <span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;Wendy&#39;</span>
+</pre></div>
+</div>
+<p>The above expression will produce a <tt class="xref py py-class docutils literal"><span class="pre">BinaryExpression</span></tt>
+construct, where the left side is the <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> object
+representing the <tt class="docutils literal"><span class="pre">name</span></tt> column, and the right side is a
+<tt class="xref py py-class docutils literal"><span class="pre">BindParameter</span></tt> representing the literal value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">right</span><span class="p">))</span>
+<span class="n">BindParameter</span><span class="p">(</span><span class="s">&#39;%(4327771088 name)s&#39;</span><span class="p">,</span> <span class="s">&#39;Wendy&#39;</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="n">String</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The expression above will render SQL such as:</p>
+<div class="highlight-python"><div class="highlight"><pre>user.name = :name_1
+</pre></div>
+</div>
+<p>Where the <tt class="docutils literal"><span class="pre">:name_1</span></tt> parameter name is an anonymous name.  The
+actual string <tt class="docutils literal"><span class="pre">Wendy</span></tt> is not in the rendered string, but is carried
+along where it is later used within statement execution.  If we
+invoke a statement like the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;Wendy&#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We would see SQL logging output as:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT &quot;user&quot;.id, &quot;user&quot;.name
+FROM &quot;user&quot;
+WHERE &quot;user&quot;.name = %(name_1)s
+{&#39;name_1&#39;: &#39;Wendy&#39;}
+</pre></div>
+</div>
+<p>Above, we see that <tt class="docutils literal"><span class="pre">Wendy</span></tt> is passed as a parameter to the database,
+while the placeholder <tt class="docutils literal"><span class="pre">:name_1</span></tt> is rendered in the appropriate form
+for the target database, in this case the Postgresql database.</p>
+<p>Similarly, <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> is invoked automatically
+when working with <em class="xref std std-term">CRUD</em> statements as far as the &#8220;VALUES&#8221;
+portion is concerned.   The <a class="reference internal" href="#data_service.option.insert" title="data_service.option.insert"><tt class="xref py py-func docutils literal"><span class="pre">insert()</span></tt></a> construct produces an
+<tt class="docutils literal"><span class="pre">INSERT</span></tt> expression which will, at statement execution time,
+generate bound placeholders based on the arguments passed, as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">users_table</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Wendy&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above will produce SQL output as:</p>
+<div class="highlight-python"><div class="highlight"><pre>INSERT INTO &quot;user&quot; (name) VALUES (%(name)s)
+{&#39;name&#39;: &#39;Wendy&#39;}
+</pre></div>
+</div>
+<p>The <tt class="xref py py-class docutils literal"><span class="pre">Insert</span></tt> construct, at compilation/execution time,
+rendered a single <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> mirroring the column
+name <tt class="docutils literal"><span class="pre">name</span></tt> as a result of the single <tt class="docutils literal"><span class="pre">name</span></tt> parameter
+we passed to the <tt class="xref py py-meth docutils literal"><span class="pre">Connection.execute()</span></tt> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> &#8211; the key (e.g. the name) for this bind param.
+Will be used in the generated
+SQL statement for dialects that use named parameters.  This
+value may be modified when part of a compilation operation,
+if other <tt class="xref py py-class docutils literal"><span class="pre">BindParameter</span></tt> objects exist with the same
+key, or if its length is too long and truncation is
+required.</li>
+<li><strong>value</strong> &#8211; Initial value for this bind param.  Will be used at statement
+execution time as the value for this parameter passed to the
+DBAPI, if no other value is indicated to the statement execution
+method for this particular parameter name.  Defaults to <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><strong>callable_</strong> &#8211; A callable function that takes the place of &#8220;value&#8221;.  The function
+will be called at statement execution time to determine the
+ultimate value.   Used for scenarios where the actual bind
+value cannot be determined at the point at which the clause
+construct is created, but embedded bind values are still desirable.</li>
+<li><strong>type_</strong> &#8211; <p>A <tt class="xref py py-class docutils literal"><span class="pre">TypeEngine</span></tt> class or instance representing an optional
+datatype for this <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a>.  If not passed, a type
+may be determined automatically for the bind, based on the given
+value; for example, trivial Python types such as <tt class="docutils literal"><span class="pre">str</span></tt>,
+<tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">bool</span></tt>
+may result in the <tt class="xref py py-class docutils literal"><span class="pre">String</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">Integer</span></tt> or
+<tt class="xref py py-class docutils literal"><span class="pre">Boolean</span></tt> types being autoamtically selected.</p>
+<p>The type of a <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> is significant especially in that
+the type will apply pre-processing to the value before it is
+passed to the database.  For example, a <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> which
+refers to a datetime value, and is specified as holding the
+<tt class="xref py py-class docutils literal"><span class="pre">DateTime</span></tt> type, may apply conversion needed to the
+value (such as stringification on SQLite) before passing the value
+to the database.</p>
+</li>
+<li><strong>unique</strong> &#8211; if True, the key name of this <tt class="xref py py-class docutils literal"><span class="pre">BindParameter</span></tt> will be
+modified if another <tt class="xref py py-class docutils literal"><span class="pre">BindParameter</span></tt> of the same name
+already has been located within the containing
+expression.  This flag is used generally by the internals
+when producing so-called &#8220;anonymous&#8221; bound expressions, it
+isn&#8217;t generally applicable to explicitly-named <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a>
+constructs.</li>
+<li><strong>required</strong> &#8211; <p>If <tt class="docutils literal"><span class="pre">True</span></tt>, a value is required at execution time.  If not passed,
+it defaults to <tt class="docutils literal"><span class="pre">True</span></tt> if neither <a href="#id1"><span class="problematic" id="id2">:paramref:`.bindparam.value`</span></a>
+or <a href="#id3"><span class="problematic" id="id4">:paramref:`.bindparam.callable`</span></a> were passed.  If either of these
+parameters are present, then <a href="#id5"><span class="problematic" id="id6">:paramref:`.bindparam.required`</span></a>
+defaults to <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.8: </span>If the <tt class="docutils literal"><span class="pre">required</span></tt> flag is not specified,
+it will be set automatically to <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt> depending
+on whether or not the <tt class="docutils literal"><span class="pre">value</span></tt> or <tt class="docutils literal"><span class="pre">callable</span></tt> parameters
+were specified.</p>
+</div>
+</li>
+<li><strong>quote</strong> &#8211; True if this parameter name requires quoting and is not
+currently known as a SQLAlchemy reserved word; this currently
+only applies to the Oracle backend, where bound names must
+sometimes be quoted.</li>
+<li><strong>isoutparam</strong> &#8211; if True, the parameter should be treated like a stored procedure
+&#8220;OUT&#8221; parameter.  This applies to backends such as Oracle which
+support OUT parameters.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><em class="xref std std-ref">coretutorial_bind_param</em></p>
+<p><em class="xref std std-ref">coretutorial_insert_expressions</em></p>
+<p class="last"><tt class="xref py py-func docutils literal"><span class="pre">outparam()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.case">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">case</tt><big>(</big><em>whens</em>, <em>value=None</em>, <em>else_=None</em><big>)</big><a class="headerlink" href="#data_service.option.case" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a <tt class="docutils literal"><span class="pre">CASE</span></tt> expression.</p>
+<p>The <tt class="docutils literal"><span class="pre">CASE</span></tt> construct in SQL is a conditional object that
+acts somewhat analogously to an &#8220;if/then&#8221; construct in other
+languages.  It returns an instance of <tt class="xref py py-class docutils literal"><span class="pre">Case</span></tt>.</p>
+<p><a class="reference internal" href="#data_service.option.case" title="data_service.option.case"><tt class="xref py py-func docutils literal"><span class="pre">case()</span></tt></a> in its usual form is passed a list of &#8220;when&#8221;
+constructs, that is, a list of conditions and results as tuples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">case</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span>\
+            <span class="n">where</span><span class="p">(</span>
+                <span class="n">case</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">,</span> <span class="s">&#39;W&#39;</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;jack&#39;</span><span class="p">,</span> <span class="s">&#39;J&#39;</span><span class="p">)</span>
+                    <span class="p">],</span>
+                    <span class="n">else_</span><span class="o">=</span><span class="s">&#39;E&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<p>The above statement will produce SQL resembling:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user
+WHERE CASE
+    WHEN (name = :name_1) THEN :param_1
+    WHEN (name = :name_2) THEN :param_2
+    ELSE :param_3
+END
+</pre></div>
+</div>
+<p>When simple equality expressions of several values against a single
+parent column are needed, <a class="reference internal" href="#data_service.option.case" title="data_service.option.case"><tt class="xref py py-func docutils literal"><span class="pre">case()</span></tt></a> also has a &#8220;shorthand&#8221; format
+used via the
+<a href="#id7"><span class="problematic" id="id8">:paramref:`.case.value`</span></a> parameter, which is passed a column
+expression to be compared.  In this form, the <a href="#id9"><span class="problematic" id="id10">:paramref:`.case.whens`</span></a>
+parameter is passed as a dictionary containing expressions to be
+compared against keyed to result expressions.  The statement below is
+equivalent to the preceding statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span>\
+            <span class="n">where</span><span class="p">(</span>
+                <span class="n">case</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s">&quot;wendy&quot;</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p">,</span> <span class="s">&quot;jack&quot;</span><span class="p">:</span> <span class="s">&quot;J&quot;</span><span class="p">},</span>
+                    <span class="n">value</span><span class="o">=</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="n">else_</span><span class="o">=</span><span class="s">&#39;E&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<p>The values which are accepted as result values in
+<a href="#id11"><span class="problematic" id="id12">:paramref:`.case.whens`</span></a> as well as with <a href="#id13"><span class="problematic" id="id14">:paramref:`.case.else_`</span></a> are
+coerced from Python literals into <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> constructs.
+SQL expressions, e.g. <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> constructs, are accepted
+as well.  To coerce a literal string expression into a constant
+expression rendered inline, use the <tt class="xref py py-func docutils literal"><span class="pre">literal_column()</span></tt> construct,
+as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">case</span><span class="p">,</span> <span class="n">literal_column</span>
+
+<span class="n">case</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span>
+            <span class="n">orderline</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">qty</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="n">literal_column</span><span class="p">(</span><span class="s">&quot;&#39;greaterthan100&#39;&quot;</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="p">(</span>
+            <span class="n">orderline</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">qty</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">literal_column</span><span class="p">(</span><span class="s">&quot;&#39;greaterthan10&#39;&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">],</span>
+    <span class="n">else_</span><span class="o">=</span><span class="n">literal_column</span><span class="p">(</span><span class="s">&quot;&#39;lessthan10&#39;&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The above will render the given constants without using bound
+parameters for the result values (but still for the comparison
+values), as in:</p>
+<div class="highlight-python"><div class="highlight"><pre>CASE
+    WHEN (orderline.qty &gt; :qty_1) THEN &#39;greaterthan100&#39;
+    WHEN (orderline.qty &gt; :qty_2) THEN &#39;greaterthan10&#39;
+    ELSE &#39;lessthan10&#39;
+END
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>whens</strong> &#8211; <p>The criteria to be compared against,
+<a href="#id15"><span class="problematic" id="id16">:paramref:`.case.whens`</span></a> accepts two different forms, based on
+whether or not <a href="#id17"><span class="problematic" id="id18">:paramref:`.case.value`</span></a> is used.</p>
+<p>In the first form, it accepts a list of 2-tuples; each 2-tuple
+consists of <tt class="docutils literal"><span class="pre">(&lt;sql</span> <span class="pre">expression&gt;,</span> <span class="pre">&lt;value&gt;)</span></tt>, where the SQL
+expression is a boolean expression and &#8220;value&#8221; is a resulting value,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">case</span><span class="p">([</span>
+    <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">,</span> <span class="s">&#39;W&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;jack&#39;</span><span class="p">,</span> <span class="s">&#39;J&#39;</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+<p>In the second form, it accepts a Python dictionary of comparison
+values mapped to a resulting value; this form requires
+<a href="#id19"><span class="problematic" id="id20">:paramref:`.case.value`</span></a> to be present, and values will be compared
+using the <tt class="docutils literal"><span class="pre">==</span></tt> operator, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">case</span><span class="p">(</span>
+    <span class="p">{</span><span class="s">&quot;wendy&quot;</span><span class="p">:</span> <span class="s">&quot;W&quot;</span><span class="p">,</span> <span class="s">&quot;jack&quot;</span><span class="p">:</span> <span class="s">&quot;J&quot;</span><span class="p">},</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><strong>value</strong> &#8211; An optional SQL expression which will be used as a
+fixed &#8220;comparison point&#8221; for candidate values within a dictionary
+passed to <a href="#id21"><span class="problematic" id="id22">:paramref:`.case.whens`</span></a>.</li>
+<li><strong>else_</strong> &#8211; An optional SQL expression which will be the evaluated
+result of the <tt class="docutils literal"><span class="pre">CASE</span></tt> construct if all expressions within
+<a href="#id23"><span class="problematic" id="id24">:paramref:`.case.whens`</span></a> evaluate to false.  When omitted, most
+databases will produce a result of NULL if none of the &#8220;when&#8221;
+expressions evaulate to true.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.cast">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">cast</tt><big>(</big><em>expression</em>, <em>type_</em><big>)</big><a class="headerlink" href="#data_service.option.cast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a <tt class="docutils literal"><span class="pre">CAST</span></tt> expression.</p>
+<p><a class="reference internal" href="#data_service.option.cast" title="data_service.option.cast"><tt class="xref py py-func docutils literal"><span class="pre">cast()</span></tt></a> returns an instance of <tt class="xref py py-class docutils literal"><span class="pre">Cast</span></tt>.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Numeric</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span>
+            <span class="n">cast</span><span class="p">(</span><span class="n">product_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">unit_price</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="p">])</span>
+</pre></div>
+</div>
+<p>The above statement will produce SQL resembling:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT CAST(unit_price AS NUMERIC(10, 4)) FROM product
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.cast" title="data_service.option.cast"><tt class="xref py py-func docutils literal"><span class="pre">cast()</span></tt></a> function performs two distinct functions when
+used.  The first is that it renders the <tt class="docutils literal"><span class="pre">CAST</span></tt> expression within
+the resulting SQL string.  The second is that it associates the given
+type (e.g. <tt class="xref py py-class docutils literal"><span class="pre">TypeEngine</span></tt> class or instance) with the column
+expression on the Python side, which means the expression will take
+on the expression operator behavior associated with that type,
+as well as the bound-value handling and result-row-handling behavior
+of the type.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.9.0: </span><a class="reference internal" href="#data_service.option.cast" title="data_service.option.cast"><tt class="xref py py-func docutils literal"><span class="pre">cast()</span></tt></a> now applies the given type
+to the expression such that it takes effect on the bound-value,
+e.g. the Python-to-database direction, in addition to the
+result handling, e.g. database-to-Python, direction.</p>
+</div>
+<p>An alternative to <a class="reference internal" href="#data_service.option.cast" title="data_service.option.cast"><tt class="xref py py-func docutils literal"><span class="pre">cast()</span></tt></a> is the <tt class="xref py py-func docutils literal"><span class="pre">type_coerce()</span></tt> function.
+This function performs the second task of associating an expression
+with a specific type, but does not render the <tt class="docutils literal"><span class="pre">CAST</span></tt> expression
+in SQL.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>expression</strong> &#8211; A SQL expression, such as a <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt>
+expression or a Python string which will be coerced into a bound
+literal value.</li>
+<li><strong>type</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">TypeEngine</span></tt> class or instance indicating
+the type to which the <tt class="docutils literal"><span class="pre">CAST</span></tt> should apply.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-func docutils literal"><span class="pre">type_coerce()</span></tt> - Python-side type coercion without emitting
+CAST.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.compare_date">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">compare_date</tt><big>(</big><em>date1</em>, <em>date2</em><big>)</big><a class="headerlink" href="#data_service.option.compare_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two date
+:param date1:
+:param date2:
+:return: 0 stands for the same; -1 stands for date1 &lt; date2; 1 stands for date1 &gt; date2</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.delete">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">delete</tt><big>(</big><em>table</em>, <em>whereclause=None</em>, <em>bind=None</em>, <em>returning=None</em>, <em>prefixes=None</em>, <em>**dialect_kw</em><big>)</big><a class="headerlink" href="#data_service.option.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct <tt class="xref py py-class docutils literal"><span class="pre">Delete</span></tt> object.</p>
+<p>Similar functionality is available via the
+<tt class="xref py py-meth docutils literal"><span class="pre">delete()</span></tt> method on
+<tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table</strong> &#8211; The table to be updated.</li>
+<li><strong>whereclause</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> describing the <tt class="docutils literal"><span class="pre">WHERE</span></tt>
+condition of the <tt class="docutils literal"><span class="pre">UPDATE</span></tt> statement. Note that the
+<tt class="xref py py-meth docutils literal"><span class="pre">where()</span></tt> generative method may be used instead.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">deletes</em> - SQL Expression Tutorial</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.desc">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">desc</tt><big>(</big><em>column</em><big>)</big><a class="headerlink" href="#data_service.option.desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a descending <tt class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></tt> clause element.</p>
+<p>e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">desc</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">desc</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>will produce SQL as:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT id, name FROM user ORDER BY name DESC
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.desc" title="data_service.option.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a> function is a standalone version of the
+<tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.desc()</span></tt> method available on all SQL expressions,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">desc</span><span class="p">())</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> (e.g. scalar SQL expression)
+with which to apply the <a class="reference internal" href="#data_service.option.desc" title="data_service.option.desc"><tt class="xref py py-func docutils literal"><span class="pre">desc()</span></tt></a> operation.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="#data_service.option.asc" title="data_service.option.asc"><tt class="xref py py-func docutils literal"><span class="pre">asc()</span></tt></a></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullsfirst()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">nullslast()</span></tt></p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">Select.order_by()</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.distinct">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">distinct</tt><big>(</big><em>expr</em><big>)</big><a class="headerlink" href="#data_service.option.distinct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce an column-expression-level unary <tt class="docutils literal"><span class="pre">DISTINCT</span></tt> clause.</p>
+<p>This applies the <tt class="docutils literal"><span class="pre">DISTINCT</span></tt> keyword to an individual column
+expression, and is typically contained within an aggregate function,
+as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">distinct</span><span class="p">,</span> <span class="n">func</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">distinct</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">))])</span>
+</pre></div>
+</div>
+<p>The above would produce an expression resembling:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT COUNT(DISTINCT name) FROM user
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.distinct" title="data_service.option.distinct"><tt class="xref py py-func docutils literal"><span class="pre">distinct()</span></tt></a> function is also available as a column-level
+method, e.g. <tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.distinct()</span></tt>, as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">distinct</span><span class="p">())])</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.distinct" title="data_service.option.distinct"><tt class="xref py py-func docutils literal"><span class="pre">distinct()</span></tt></a> operator is different from the
+<tt class="xref py py-meth docutils literal"><span class="pre">Select.distinct()</span></tt> method of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt>,
+which produces a <tt class="docutils literal"><span class="pre">SELECT</span></tt> statement
+with <tt class="docutils literal"><span class="pre">DISTINCT</span></tt> applied to the result set as a whole,
+e.g. a <tt class="docutils literal"><span class="pre">SELECT</span> <span class="pre">DISTINCT</span></tt> expression.  See that method for further
+information.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><tt class="xref py py-meth docutils literal"><span class="pre">ColumnElement.distinct()</span></tt></p>
+<p><tt class="xref py py-meth docutils literal"><span class="pre">Select.distinct()</span></tt></p>
+<p class="last"><tt class="xref py py-data docutils literal"><span class="pre">func</span></tt></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.except_">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">except_</tt><big>(</big><em>*selects</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.except_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an <tt class="docutils literal"><span class="pre">EXCEPT</span></tt> of multiple selectables.</p>
+<p>The returned object is an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">CompoundSelect</span></tt>.</p>
+<dl class="docutils">
+<dt>*selects</dt>
+<dd>a list of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> instances.</dd>
+<dt>**kwargs</dt>
+<dd>available keyword arguments are the same as those of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.except_all">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">except_all</tt><big>(</big><em>*selects</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.except_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an <tt class="docutils literal"><span class="pre">EXCEPT</span> <span class="pre">ALL</span></tt> of multiple selectables.</p>
+<p>The returned object is an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">CompoundSelect</span></tt>.</p>
+<dl class="docutils">
+<dt>*selects</dt>
+<dd>a list of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> instances.</dd>
+<dt>**kwargs</dt>
+<dd>available keyword arguments are the same as those of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.exists">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">exists</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a new <tt class="xref py py-class docutils literal"><span class="pre">Exists</span></tt> against an existing
+<tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> object.</p>
+<p>Calling styles are of the following forms:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># use on an existing select()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">col1</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">col2</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">exists</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="c"># construct a select() at once</span>
+<span class="n">exists</span><span class="p">([</span><span class="s">&#39;*&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">select_arguments</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">criterion</span><span class="p">)</span>
+
+<span class="c"># columns argument is optional, generates &quot;EXISTS (SELECT *)&quot;</span>
+<span class="c"># by default.</span>
+<span class="n">exists</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">col2</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.extract">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">extract</tt><big>(</big><em>field</em>, <em>expr</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <tt class="xref py py-class docutils literal"><span class="pre">Extract</span></tt> construct.</p>
+<p>This is typically available as <a class="reference internal" href="#data_service.option.extract" title="data_service.option.extract"><tt class="xref py py-func docutils literal"><span class="pre">extract()</span></tt></a>
+as well as <tt class="docutils literal"><span class="pre">func.extract</span></tt> from the
+<tt class="xref py py-data docutils literal"><span class="pre">func</span></tt> namespace.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.false">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">false</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.option.false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a constant <tt class="xref py py-class docutils literal"><span class="pre">False_</span></tt> construct.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">false</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">false</span><span class="p">())</span>
+<span class="go">SELECT x FROM t WHERE false</span>
+</pre></div>
+</div>
+<p>A backend which does not support true/false constants will render as
+an expression against 1 or 0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">false</span><span class="p">())</span>
+<span class="go">SELECT x FROM t WHERE 0 = 1</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.true" title="data_service.option.true"><tt class="xref py py-func docutils literal"><span class="pre">true()</span></tt></a> and <a class="reference internal" href="#data_service.option.false" title="data_service.option.false"><tt class="xref py py-func docutils literal"><span class="pre">false()</span></tt></a> constants also feature
+&#8220;short circuit&#8221; operation within an <a class="reference internal" href="#data_service.option.and_" title="data_service.option.and_"><tt class="xref py py-func docutils literal"><span class="pre">and_()</span></tt></a> or <a class="reference internal" href="#data_service.option.or_" title="data_service.option.or_"><tt class="xref py py-func docutils literal"><span class="pre">or_()</span></tt></a>
+conjunction:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">or_</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">true</span><span class="p">()))</span>
+<span class="go">SELECT x FROM t WHERE true</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">and_</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">false</span><span class="p">()))</span>
+<span class="go">SELECT x FROM t WHERE false</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.9: </span><a class="reference internal" href="#data_service.option.true" title="data_service.option.true"><tt class="xref py py-func docutils literal"><span class="pre">true()</span></tt></a> and <a class="reference internal" href="#data_service.option.false" title="data_service.option.false"><tt class="xref py py-func docutils literal"><span class="pre">false()</span></tt></a> feature
+better integrated behavior within conjunctions and on dialects
+that don&#8217;t support true/false constants.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#data_service.option.true" title="data_service.option.true"><tt class="xref py py-func docutils literal"><span class="pre">true()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.get_cur_date">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">get_cur_date</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.option.get_cur_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current date. Hour, minute and second will be set to 0</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.insert">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">insert</tt><big>(</big><em>table</em>, <em>values=None</em>, <em>inline=False</em>, <em>bind=None</em>, <em>prefixes=None</em>, <em>returning=None</em>, <em>return_defaults=False</em>, <em>**dialect_kw</em><big>)</big><a class="headerlink" href="#data_service.option.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct an <tt class="xref py py-class docutils literal"><span class="pre">Insert</span></tt> object.</p>
+<p>Similar functionality is available via the
+<tt class="xref py py-meth docutils literal"><span class="pre">insert()</span></tt> method on
+<tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">TableClause</span></tt> which is the subject of the
+insert.</li>
+<li><strong>values</strong> &#8211; collection of values to be inserted; see
+<tt class="xref py py-meth docutils literal"><span class="pre">Insert.values()</span></tt> for a description of allowed formats here.
+Can be omitted entirely; a <tt class="xref py py-class docutils literal"><span class="pre">Insert</span></tt> construct will also
+dynamically render the VALUES clause at execution time based on
+the parameters passed to <tt class="xref py py-meth docutils literal"><span class="pre">Connection.execute()</span></tt>.</li>
+<li><strong>inline</strong> &#8211; if True, SQL defaults will be compiled &#8216;inline&#8217; into
+the statement and not pre-executed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If both <cite>values</cite> and compile-time bind parameters are present, the
+compile-time bind parameters override the information specified
+within <cite>values</cite> on a per-key basis.</p>
+<p>The keys within <cite>values</cite> can be either
+<tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> objects or their string
+identifiers. Each key may reference one of:</p>
+<ul class="simple">
+<li>a literal data value (i.e. string, number, etc.);</li>
+<li>a Column object;</li>
+<li>a SELECT statement.</li>
+</ul>
+<p>If a <tt class="docutils literal"><span class="pre">SELECT</span></tt> statement is specified which references this
+<tt class="docutils literal"><span class="pre">INSERT</span></tt> statement&#8217;s table, the statement will be correlated
+against the <tt class="docutils literal"><span class="pre">INSERT</span></tt> statement.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><em class="xref std std-ref">coretutorial_insert_expressions</em> - SQL Expression Tutorial</p>
+<p class="last"><em class="xref std std-ref">inserts_and_updates</em> - SQL Expression Tutorial</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.intersect">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">intersect</tt><big>(</big><em>*selects</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.intersect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an <tt class="docutils literal"><span class="pre">INTERSECT</span></tt> of multiple selectables.</p>
+<p>The returned object is an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">CompoundSelect</span></tt>.</p>
+<dl class="docutils">
+<dt>*selects</dt>
+<dd>a list of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> instances.</dd>
+<dt>**kwargs</dt>
+<dd>available keyword arguments are the same as those of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.intersect_all">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">intersect_all</tt><big>(</big><em>*selects</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.intersect_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an <tt class="docutils literal"><span class="pre">INTERSECT</span> <span class="pre">ALL</span></tt> of multiple selectables.</p>
+<p>The returned object is an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">CompoundSelect</span></tt>.</p>
+<dl class="docutils">
+<dt>*selects</dt>
+<dd>a list of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> instances.</dd>
+<dt>**kwargs</dt>
+<dd>available keyword arguments are the same as those of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.join">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">join</tt><big>(</big><em>left</em>, <em>right</em>, <em>onclause=None</em>, <em>isouter=False</em><big>)</big><a class="headerlink" href="#data_service.option.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a <tt class="xref py py-class docutils literal"><span class="pre">Join</span></tt> object, given two <tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt>
+expressions.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">j</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">user_table</span><span class="p">,</span> <span class="n">address_table</span><span class="p">,</span>
+         <span class="n">user_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">address_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">user_table</span><span class="p">])</span><span class="o">.</span><span class="n">select_from</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>would emit SQL along the lines of:</p>
+<div class="highlight-python"><div class="highlight"><pre>SELECT user.id, user.name FROM user
+JOIN address ON user.id = address.user_id
+</pre></div>
+</div>
+<p>Similar functionality is available given any
+<tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt> object (e.g. such as a <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>) using
+the <tt class="xref py py-meth docutils literal"><span class="pre">FromClause.join()</span></tt> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>left</strong> &#8211; The left side of the join.</li>
+<li><strong>right</strong> &#8211; the right side of the join; this is any
+<tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt> object such as a <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> object, and
+may also be a selectable-compatible object such as an ORM-mapped
+class.</li>
+<li><strong>onclause</strong> &#8211; a SQL expression representing the ON clause of the
+join.  If left at <tt class="docutils literal"><span class="pre">None</span></tt>, <tt class="xref py py-meth docutils literal"><span class="pre">FromClause.join()</span></tt> will attempt to
+join the two tables based on a foreign key relationship.</li>
+<li><strong>isouter</strong> &#8211; if True, render a LEFT OUTER JOIN, instead of JOIN.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><tt class="xref py py-meth docutils literal"><span class="pre">FromClause.join()</span></tt> - method form, based on a given left side</p>
+<p class="last"><tt class="xref py py-class docutils literal"><span class="pre">Join</span></tt> - the type of object produced</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.null">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">null</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.option.null" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a constant <tt class="xref py py-class docutils literal"><span class="pre">Null</span></tt> construct.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.or_">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">or_</tt><big>(</big><em>*clauses</em><big>)</big><a class="headerlink" href="#data_service.option.or_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce a conjunction of expressions joined by <tt class="docutils literal"><span class="pre">OR</span></tt>.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">or_</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="n">or_</span><span class="p">(</span>
+                    <span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">,</span>
+                    <span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;jack&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.or_" title="data_service.option.or_"><tt class="xref py py-func docutils literal"><span class="pre">or_()</span></tt></a> conjunction is also available using the
+Python <tt class="docutils literal"><span class="pre">|</span></tt> operator (though note that compound expressions
+need to be parenthesized in order to function with Python
+operator precedence behavior):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users_table</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;wendy&#39;</span><span class="p">)</span> <span class="o">|</span>
+                <span class="p">(</span><span class="n">users_table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;jack&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#data_service.option.and_" title="data_service.option.and_"><tt class="xref py py-func docutils literal"><span class="pre">and_()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.outerjoin">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">outerjoin</tt><big>(</big><em>left</em>, <em>right</em>, <em>onclause=None</em><big>)</big><a class="headerlink" href="#data_service.option.outerjoin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an <tt class="docutils literal"><span class="pre">OUTER</span> <span class="pre">JOIN</span></tt> clause element.</p>
+<p>The returned object is an instance of <tt class="xref py py-class docutils literal"><span class="pre">Join</span></tt>.</p>
+<p>Similar functionality is also available via the
+<tt class="xref py py-meth docutils literal"><span class="pre">outerjoin()</span></tt> method on any
+<tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>left</strong> &#8211; The left side of the join.</li>
+<li><strong>right</strong> &#8211; The right side of the join.</li>
+<li><strong>onclause</strong> &#8211; Optional criterion for the <tt class="docutils literal"><span class="pre">ON</span></tt> clause, is
+derived from foreign key relationships established between
+left and right otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>To chain joins together, use the <tt class="xref py py-meth docutils literal"><span class="pre">FromClause.join()</span></tt> or
+<tt class="xref py py-meth docutils literal"><span class="pre">FromClause.outerjoin()</span></tt> methods on the resulting
+<tt class="xref py py-class docutils literal"><span class="pre">Join</span></tt> object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.over">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">over</tt><big>(</big><em>func</em>, <em>partition_by=None</em>, <em>order_by=None</em><big>)</big><a class="headerlink" href="#data_service.option.over" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce an <tt class="xref py py-class docutils literal"><span class="pre">Over</span></tt> object against a function.</p>
+<p>Used against aggregate or so-called &#8220;window&#8221; functions,
+for database backends that support window functions.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">over</span>
+<span class="n">over</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">row_number</span><span class="p">(),</span> <span class="n">order_by</span><span class="o">=</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Would produce &#8220;ROW_NUMBER() OVER(ORDER BY x)&#8221;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> &#8211; a <tt class="xref py py-class docutils literal"><span class="pre">FunctionElement</span></tt> construct, typically
+generated by <tt class="xref py py-data docutils literal"><span class="pre">func</span></tt>.</li>
+<li><strong>partition_by</strong> &#8211; a column element or string, or a list
+of such, that will be used as the PARTITION BY clause
+of the OVER construct.</li>
+<li><strong>order_by</strong> &#8211; a column element or string, or a list
+of such, that will be used as the ORDER BY clause
+of the OVER construct.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function is also available from the <tt class="xref py py-data docutils literal"><span class="pre">func</span></tt>
+construct itself via the <tt class="xref py py-meth docutils literal"><span class="pre">FunctionElement.over()</span></tt> method.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.7.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.select">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">select</tt><big>(</big><em>columns=None</em>, <em>whereclause=None</em>, <em>from_obj=None</em>, <em>distinct=False</em>, <em>having=None</em>, <em>correlate=True</em>, <em>prefixes=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a new <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt>.</p>
+<p>Similar functionality is also available via the
+<tt class="xref py py-meth docutils literal"><span class="pre">FromClause.select()</span></tt> method on any <tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt>.</p>
+<p>All arguments which accept <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> arguments also
+accept string arguments, which will be converted as appropriate into
+either <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a> or <tt class="xref py py-func docutils literal"><span class="pre">literal_column()</span></tt> constructs.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">coretutorial_selecting</em> - Core Tutorial description of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>columns</strong> &#8211; <p>A list of <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> objects, typically
+<tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> objects or subclasses, which will form the
+columns clause of the resulting statement. For all members which are
+instances of <tt class="xref py py-class docutils literal"><span class="pre">Selectable</span></tt>, the individual
+<tt class="xref py py-class docutils literal"><span class="pre">ColumnElement</span></tt> members of the <tt class="xref py py-class docutils literal"><span class="pre">Selectable</span></tt> will be
+added individually to the columns clause. For example, specifying a
+<tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> instance will result in all the
+contained <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> objects within to be
+added to the columns clause.</p>
+<p>This argument is not present on the form of <a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>
+available on <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>.</p>
+</li>
+<li><strong>whereclause</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> expression which will be used to form the
+<tt class="docutils literal"><span class="pre">WHERE</span></tt> clause.</li>
+<li><strong>from_obj</strong> &#8211; A list of <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> objects which will be added to the
+<tt class="docutils literal"><span class="pre">FROM</span></tt> clause of the resulting statement. Note that &#8220;from&#8221; objects
+are automatically located within the columns and whereclause
+ClauseElements.  Use this parameter to explicitly specify &#8220;from&#8221;
+objects which are not automatically locatable. This could include
+<tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> objects that aren&#8217;t otherwise
+present, or <tt class="xref py py-class docutils literal"><span class="pre">Join</span></tt> objects whose presence will supersede
+that of the <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> objects already
+located in the other clauses.</li>
+<li><strong>autocommit</strong> &#8211; Deprecated.  Use .execution_options(autocommit=&lt;True|False&gt;)
+to set the autocommit option.</li>
+<li><strong>bind=None</strong> &#8211; an <tt class="xref py py-class docutils literal"><span class="pre">Engine</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">Connection</span></tt> instance
+to which the
+resulting <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> object will be bound.  The
+<tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> object will otherwise automatically bind to
+whatever <tt class="xref py py-class docutils literal"><span class="pre">Connectable</span></tt> instances can be located within
+its contained <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> members.</li>
+<li><strong>correlate=True</strong> &#8211; indicates that this <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> object should have its
+contained <tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt> elements &#8220;correlated&#8221; to an enclosing
+<tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> object.  This means that any
+<tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> instance within the &#8220;froms&#8221; collection of
+this <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> which is also present in the &#8220;froms&#8221;
+collection of an enclosing select will not be rendered in the
+<tt class="docutils literal"><span class="pre">FROM</span></tt> clause of this select statement.</li>
+<li><strong>distinct=False</strong> &#8211; <p>when <tt class="docutils literal"><span class="pre">True</span></tt>, applies a <tt class="docutils literal"><span class="pre">DISTINCT</span></tt> qualifier to the columns
+clause of the resulting statement.</p>
+<p>The boolean argument may also be a column expression or list
+of column expressions - this is a special calling form which
+is understood by the Postgresql dialect to render the
+<tt class="docutils literal"><span class="pre">DISTINCT</span> <span class="pre">ON</span> <span class="pre">(&lt;columns&gt;)</span></tt> syntax.</p>
+<p><tt class="docutils literal"><span class="pre">distinct</span></tt> is also available via the <tt class="xref py py-meth docutils literal"><span class="pre">distinct()</span></tt>
+generative method.</p>
+</li>
+<li><strong>for_update=False</strong> &#8211; <blockquote>
+<div>when <tt class="docutils literal"><span class="pre">True</span></tt>, applies <tt class="docutils literal"><span class="pre">FOR</span> <span class="pre">UPDATE</span></tt> to the end of the
+resulting statement.<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.9.0: </span>- use
+<tt class="xref py py-meth docutils literal"><span class="pre">GenerativeSelect.with_for_update()</span></tt> to specify the
+structure of the <tt class="docutils literal"><span class="pre">FOR</span> <span class="pre">UPDATE</span></tt> clause.</p>
+</div>
+<p><tt class="docutils literal"><span class="pre">for_update</span></tt> accepts various string values interpreted by
+specific backends, including:</p>
+<ul>
+<li><tt class="docutils literal"><span class="pre">&quot;read&quot;</span></tt> - on MySQL, translates to <tt class="docutils literal"><span class="pre">LOCK</span> <span class="pre">IN</span> <span class="pre">SHARE</span> <span class="pre">MODE</span></tt>;
+on Postgresql, translates to <tt class="docutils literal"><span class="pre">FOR</span> <span class="pre">SHARE</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;nowait&quot;</span></tt> - on Postgresql and Oracle, translates to
+<tt class="docutils literal"><span class="pre">FOR</span> <span class="pre">UPDATE</span> <span class="pre">NOWAIT</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;read_nowait&quot;</span></tt> - on Postgresql, translates to
+<tt class="docutils literal"><span class="pre">FOR</span> <span class="pre">SHARE</span> <span class="pre">NOWAIT</span></tt>.</li>
+</ul>
+</div></blockquote>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">GenerativeSelect.with_for_update()</span></tt> - improved API for
+specifying the <tt class="docutils literal"><span class="pre">FOR</span> <span class="pre">UPDATE</span></tt> clause.</p>
+</div>
+</li>
+<li><strong>group_by</strong> &#8211; a list of <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> objects which will comprise the
+<tt class="docutils literal"><span class="pre">GROUP</span> <span class="pre">BY</span></tt> clause of the resulting select.</li>
+<li><strong>having</strong> &#8211; a <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> that will comprise the <tt class="docutils literal"><span class="pre">HAVING</span></tt> clause
+of the resulting select when <tt class="docutils literal"><span class="pre">GROUP</span> <span class="pre">BY</span></tt> is used.</li>
+<li><strong>limit=None</strong> &#8211; a numerical value which usually compiles to a <tt class="docutils literal"><span class="pre">LIMIT</span></tt>
+expression in the resulting select.  Databases that don&#8217;t
+support <tt class="docutils literal"><span class="pre">LIMIT</span></tt> will attempt to provide similar
+functionality.</li>
+<li><strong>offset=None</strong> &#8211; a numeric value which usually compiles to an <tt class="docutils literal"><span class="pre">OFFSET</span></tt>
+expression in the resulting select.  Databases that don&#8217;t
+support <tt class="docutils literal"><span class="pre">OFFSET</span></tt> will attempt to provide similar
+functionality.</li>
+<li><strong>order_by</strong> &#8211; a scalar or list of <tt class="xref py py-class docutils literal"><span class="pre">ClauseElement</span></tt> objects which will
+comprise the <tt class="docutils literal"><span class="pre">ORDER</span> <span class="pre">BY</span></tt> clause of the resulting select.</li>
+<li><strong>use_labels=False</strong> &#8211; <p>when <tt class="docutils literal"><span class="pre">True</span></tt>, the statement will be generated using labels
+for each column in the columns clause, which qualify each
+column with its parent table&#8217;s (or aliases) name so that name
+conflicts between columns in different tables don&#8217;t occur.
+The format of the label is &lt;tablename&gt;_&lt;column&gt;.  The &#8220;c&#8221;
+collection of the resulting <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> object will use these
+names as well for targeting column members.</p>
+<p>use_labels is also available via the
+<tt class="xref py py-meth docutils literal"><span class="pre">apply_labels()</span></tt> generative method.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.text">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">text</tt><big>(</big><em>text</em>, <em>bind=None</em>, <em>bindparams=None</em>, <em>typemap=None</em>, <em>autocommit=None</em><big>)</big><a class="headerlink" href="#data_service.option.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a new <tt class="xref py py-class docutils literal"><span class="pre">TextClause</span></tt> clause, representing
+a textual SQL string directly.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>fom sqlalchemy import text
+
+t = text(&quot;SELECT * FROM users&quot;)
+result = connection.execute(t)
+</pre></div>
+</div>
+<p>The advantages <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a> provides over a plain string are
+backend-neutral support for bind parameters, per-statement
+execution options, as well as
+bind parameter and result-column typing behavior, allowing
+SQLAlchemy type constructs to play a role when executing
+a statement that is specified literally.  The construct can also
+be provided with a <tt class="docutils literal"><span class="pre">.c</span></tt> collection of column elements, allowing
+it to be embedded in other SQL expression constructs as a subquery.</p>
+<p>Bind parameters are specified by name, using the format <tt class="docutils literal"><span class="pre">:name</span></tt>.
+E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">t</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM users WHERE id=:user_id&quot;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For SQL statements where a colon is required verbatim, as within
+an inline string, use a backslash to escape:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">t</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM users WHERE name=&#39;\:username&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <tt class="xref py py-class docutils literal"><span class="pre">TextClause</span></tt> construct includes methods which can
+provide information about the bound parameters as well as the column
+values which would be returned from the textual statement, assuming
+it&#8217;s an executable SELECT type of statement.  The
+<tt class="xref py py-meth docutils literal"><span class="pre">TextClause.bindparams()</span></tt> method is used to provide bound
+parameter detail, and <tt class="xref py py-meth docutils literal"><span class="pre">TextClause.columns()</span></tt> method allows
+specification of return columns including names and types:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">t</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM users WHERE id=:user_id&quot;</span><span class="p">)</span><span class="o">.</span>\
+        <span class="n">bindparams</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span>\
+        <span class="n">columns</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">Integer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">String</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a> construct is used internally in cases when
+a literal string is specified for part of a larger query, such as
+when a string is specified to the <tt class="xref py py-meth docutils literal"><span class="pre">Select.where()</span></tt> method of
+<tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt>.  In those cases, the same
+bind parameter syntax is applied:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s">&quot;id=:user_id&quot;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a> explicitly usually implies the construction
+of a full, standalone statement.   As such, SQLAlchemy refers
+to it as an <tt class="xref py py-class docutils literal"><span class="pre">Executable</span></tt> object, and it supports
+the <tt class="xref py py-meth docutils literal"><span class="pre">Executable.execution_options()</span></tt> method.  For example,
+a <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a> construct that should be subject to &#8220;autocommit&#8221;
+can be set explicitly so using the
+<a href="#id25"><span class="problematic" id="id26">:paramref:`.Connection.execution_options.autocommit`</span></a> option:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">t</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;EXEC my_procedural_thing()&quot;</span><span class="p">)</span><span class="o">.</span>\
+        <span class="n">execution_options</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that SQLAlchemy&#8217;s usual &#8220;autocommit&#8221; behavior applies to
+<a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a> constructs implicitly - that is, statements which begin
+with a phrase such as <tt class="docutils literal"><span class="pre">INSERT</span></tt>, <tt class="docutils literal"><span class="pre">UPDATE</span></tt>, <tt class="docutils literal"><span class="pre">DELETE</span></tt>,
+or a variety of other phrases specific to certain backends, will
+be eligible for autocommit if no transaction is in progress.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>text</strong> &#8211; the text of the SQL statement to be created.  use <tt class="docutils literal"><span class="pre">:&lt;param&gt;</span></tt>
+to specify bind parameters; they will be compiled to their
+engine-specific format.</li>
+<li><strong>autocommit</strong> &#8211; Deprecated.  Use .execution_options(autocommit=&lt;True|False&gt;)
+to set the autocommit option.</li>
+<li><strong>bind</strong> &#8211; an optional connection or engine to be used for this text query.</li>
+<li><strong>bindparams</strong> &#8211; <p>Deprecated.  A list of <a class="reference internal" href="#data_service.option.bindparam" title="data_service.option.bindparam"><tt class="xref py py-func docutils literal"><span class="pre">bindparam()</span></tt></a> instances used to
+provide information about parameters embedded in the statement.
+This argument now invokes the <tt class="xref py py-meth docutils literal"><span class="pre">TextClause.bindparams()</span></tt>
+method on the construct before returning it.  E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM table WHERE id=:id&quot;</span><span class="p">,</span>
+          <span class="n">bindparams</span><span class="o">=</span><span class="p">[</span><span class="n">bindparam</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="n">Integer</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>Is equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM table WHERE id=:id&quot;</span><span class="p">)</span><span class="o">.</span>\
+          <span class="n">bindparams</span><span class="p">(</span><span class="n">bindparam</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="n">Integer</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.9.0: </span>the <tt class="xref py py-meth docutils literal"><span class="pre">TextClause.bindparams()</span></tt> method
+supersedes the <tt class="docutils literal"><span class="pre">bindparams</span></tt> argument to <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a>.</p>
+</div>
+</li>
+<li><strong>typemap</strong> &#8211; <p>Deprecated.  A dictionary mapping the names of columns
+represented in the columns clause of a <tt class="docutils literal"><span class="pre">SELECT</span></tt> statement
+to type objects,
+which will be used to perform post-processing on columns within
+the result set.  This parameter now invokes the
+<tt class="xref py py-meth docutils literal"><span class="pre">TextClause.columns()</span></tt> method, which returns a
+<tt class="xref py py-class docutils literal"><span class="pre">TextAsFrom</span></tt> construct that gains a <tt class="docutils literal"><span class="pre">.c</span></tt> collection and
+can be embedded in other expressions.  E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM table&quot;</span><span class="p">,</span>
+              <span class="n">typemap</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">Integer</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">String</span><span class="p">},</span>
+          <span class="p">)</span>
+</pre></div>
+</div>
+<p>Is equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM table&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">Integer</span><span class="p">,</span>
+                                           <span class="n">name</span><span class="o">=</span><span class="n">String</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or alternatively:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">column</span>
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s">&quot;SELECT * FROM table&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span>
+                      <span class="n">column</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
+                      <span class="n">column</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">)</span>
+                  <span class="p">)</span>
+</pre></div>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.9.0: </span>the <tt class="xref py py-meth docutils literal"><span class="pre">TextClause.columns()</span></tt> method
+supersedes the <tt class="docutils literal"><span class="pre">typemap</span></tt> argument to <a class="reference internal" href="#data_service.option.text" title="data_service.option.text"><tt class="xref py py-func docutils literal"><span class="pre">text()</span></tt></a>.</p>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.true">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">true</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.option.true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a constant <tt class="xref py py-class docutils literal"><span class="pre">True_</span></tt> construct.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">true</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">true</span><span class="p">())</span>
+<span class="go">SELECT x FROM t WHERE true</span>
+</pre></div>
+</div>
+<p>A backend which does not support true/false constants will render as
+an expression against 1 or 0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">true</span><span class="p">())</span>
+<span class="go">SELECT x FROM t WHERE 1 = 1</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#data_service.option.true" title="data_service.option.true"><tt class="xref py py-func docutils literal"><span class="pre">true()</span></tt></a> and <a class="reference internal" href="#data_service.option.false" title="data_service.option.false"><tt class="xref py py-func docutils literal"><span class="pre">false()</span></tt></a> constants also feature
+&#8220;short circuit&#8221; operation within an <a class="reference internal" href="#data_service.option.and_" title="data_service.option.and_"><tt class="xref py py-func docutils literal"><span class="pre">and_()</span></tt></a> or <a class="reference internal" href="#data_service.option.or_" title="data_service.option.or_"><tt class="xref py py-func docutils literal"><span class="pre">or_()</span></tt></a>
+conjunction:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">or_</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">true</span><span class="p">()))</span>
+<span class="go">SELECT x FROM t WHERE true</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">select</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">and_</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">false</span><span class="p">()))</span>
+<span class="go">SELECT x FROM t WHERE false</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.9: </span><a class="reference internal" href="#data_service.option.true" title="data_service.option.true"><tt class="xref py py-func docutils literal"><span class="pre">true()</span></tt></a> and <a class="reference internal" href="#data_service.option.false" title="data_service.option.false"><tt class="xref py py-func docutils literal"><span class="pre">false()</span></tt></a> feature
+better integrated behavior within conjunctions and on dialects
+that don&#8217;t support true/false constants.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#data_service.option.false" title="data_service.option.false"><tt class="xref py py-func docutils literal"><span class="pre">false()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.tuple_">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">tuple_</tt><big>(</big><em>*clauses</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#data_service.option.tuple_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <tt class="xref py py-class docutils literal"><span class="pre">Tuple</span></tt>.</p>
+<p>Main usage is to produce a composite IN construct:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">tuple_</span>
+
+<span class="n">tuple_</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">col1</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">col2</span><span class="p">)</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span>
+    <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">19</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The composite IN construct is not supported by all backends,
+and is currently known to work on Postgresql and MySQL,
+but not SQLite.   Unsupported backends will raise
+a subclass of <tt class="xref py py-class docutils literal"><span class="pre">DBAPIError</span></tt> when such
+an expression is invoked.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.union">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">union</tt><big>(</big><em>*selects</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <tt class="docutils literal"><span class="pre">UNION</span></tt> of multiple selectables.</p>
+<p>The returned object is an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">CompoundSelect</span></tt>.</p>
+<p>A similar <a class="reference internal" href="#data_service.option.union" title="data_service.option.union"><tt class="xref py py-func docutils literal"><span class="pre">union()</span></tt></a> method is available on all
+<tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt> subclasses.</p>
+<dl class="docutils">
+<dt>*selects</dt>
+<dd>a list of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> instances.</dd>
+<dt>**kwargs</dt>
+<dd>available keyword arguments are the same as those of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.union_all">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">union_all</tt><big>(</big><em>*selects</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.option.union_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <tt class="docutils literal"><span class="pre">UNION</span> <span class="pre">ALL</span></tt> of multiple selectables.</p>
+<p>The returned object is an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">CompoundSelect</span></tt>.</p>
+<p>A similar <a class="reference internal" href="#data_service.option.union_all" title="data_service.option.union_all"><tt class="xref py py-func docutils literal"><span class="pre">union_all()</span></tt></a> method is available on all
+<tt class="xref py py-class docutils literal"><span class="pre">FromClause</span></tt> subclasses.</p>
+<dl class="docutils">
+<dt>*selects</dt>
+<dd>a list of <tt class="xref py py-class docutils literal"><span class="pre">Select</span></tt> instances.</dd>
+<dt>**kwargs</dt>
+<dd>available keyword arguments are the same as those of
+<a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data_service.option.update">
+<tt class="descclassname">data_service.option.</tt><tt class="descname">update</tt><big>(</big><em>table</em>, <em>whereclause=None</em>, <em>values=None</em>, <em>inline=False</em>, <em>bind=None</em>, <em>prefixes=None</em>, <em>returning=None</em>, <em>return_defaults=False</em>, <em>**dialect_kw</em><big>)</big><a class="headerlink" href="#data_service.option.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct an <tt class="xref py py-class docutils literal"><span class="pre">Update</span></tt> object.</p>
+<p>E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">update</span>
+
+<span class="n">stmt</span> <span class="o">=</span> <span class="n">update</span><span class="p">(</span><span class="n">users</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span>\
+        <span class="n">values</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;user #5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similar functionality is available via the
+<tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt> method on
+<tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stmt</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">update</span><span class="p">()</span><span class="o">.</span>\
+            <span class="n">where</span><span class="p">(</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span>\
+            <span class="n">values</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;user #5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> object representing the database
+table to be updated.</li>
+<li><strong>whereclause</strong> &#8211; <p>Optional SQL expression describing the <tt class="docutils literal"><span class="pre">WHERE</span></tt>
+condition of the <tt class="docutils literal"><span class="pre">UPDATE</span></tt> statement.   Modern applications
+may prefer to use the generative <tt class="xref py py-meth docutils literal"><span class="pre">where()</span></tt>
+method to specify the <tt class="docutils literal"><span class="pre">WHERE</span></tt> clause.</p>
+<p>The WHERE clause can refer to multiple tables.
+For databases which support this, an <tt class="docutils literal"><span class="pre">UPDATE</span> <span class="pre">FROM</span></tt> clause will
+be generated, or on MySQL, a multi-table update.  The statement
+will fail on databases that don&#8217;t have support for multi-table
+update statements.  A SQL-standard method of referring to
+additional tables in the WHERE clause is to use a correlated
+subquery:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">users</span><span class="o">.</span><span class="n">update</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;ed&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">==</span><span class="n">select</span><span class="p">([</span><span class="n">addresses</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">email_address</span><span class="p">])</span><span class="o">.</span>\
+                    <span class="n">where</span><span class="p">(</span><span class="n">addresses</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">user_id</span><span class="o">==</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span>\
+                    <span class="n">as_scalar</span><span class="p">()</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.7.4: </span>The WHERE clause can refer to multiple tables.</p>
+</div>
+</li>
+<li><strong>values</strong> &#8211; <p>Optional dictionary which specifies the <tt class="docutils literal"><span class="pre">SET</span></tt> conditions of the
+<tt class="docutils literal"><span class="pre">UPDATE</span></tt>.  If left as <tt class="docutils literal"><span class="pre">None</span></tt>, the <tt class="docutils literal"><span class="pre">SET</span></tt>
+conditions are determined from those parameters passed to the
+statement during the execution and/or compilation of the
+statement.   When compiled standalone without any parameters,
+the <tt class="docutils literal"><span class="pre">SET</span></tt> clause generates for all columns.</p>
+<p>Modern applications may prefer to use the generative
+<tt class="xref py py-meth docutils literal"><span class="pre">Update.values()</span></tt> method to set the values of the
+UPDATE statement.</p>
+</li>
+<li><strong>inline</strong> &#8211; if True, SQL defaults present on <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> objects via
+the <tt class="docutils literal"><span class="pre">default</span></tt> keyword will be compiled &#8216;inline&#8217; into the statement
+and not pre-executed.  This means that their values will not
+be available in the dictionary returned from
+<tt class="xref py py-meth docutils literal"><span class="pre">ResultProxy.last_updated_params()</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If both <tt class="docutils literal"><span class="pre">values</span></tt> and compile-time bind parameters are present, the
+compile-time bind parameters override the information specified
+within <tt class="docutils literal"><span class="pre">values</span></tt> on a per-key basis.</p>
+<p>The keys within <tt class="docutils literal"><span class="pre">values</span></tt> can be either <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>
+objects or their string identifiers (specifically the &#8220;key&#8221; of the
+<tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>, normally but not necessarily equivalent to
+its &#8220;name&#8221;).  Normally, the
+<tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt> objects used here are expected to be
+part of the target <tt class="xref py py-class docutils literal"><span class="pre">Table</span></tt> that is the table
+to be updated.  However when using MySQL, a multiple-table
+UPDATE statement can refer to columns from any of
+the tables referred to in the WHERE clause.</p>
+<p>The values referred to in <tt class="docutils literal"><span class="pre">values</span></tt> are typically:</p>
+<ul class="simple">
+<li>a literal data value (i.e. string, number, etc.)</li>
+<li>a SQL expression, such as a related <tt class="xref py py-class docutils literal"><span class="pre">Column</span></tt>,
+a scalar-returning <a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a> construct,
+etc.</li>
+</ul>
+<p>When combining <a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a> constructs within the values
+clause of an <a class="reference internal" href="#data_service.option.update" title="data_service.option.update"><tt class="xref py py-func docutils literal"><span class="pre">update()</span></tt></a> construct,
+the subquery represented by the <a class="reference internal" href="#data_service.option.select" title="data_service.option.select"><tt class="xref py py-func docutils literal"><span class="pre">select()</span></tt></a> should be
+<em>correlated</em> to the parent table, that is, providing criterion
+which links the table inside the subquery to the outer table
+being updated:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">users</span><span class="o">.</span><span class="n">update</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">select</span><span class="p">([</span><span class="n">addresses</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">email_address</span><span class="p">])</span><span class="o">.</span>\
+                <span class="n">where</span><span class="p">(</span><span class="n">addresses</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">user_id</span><span class="o">==</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span>\
+                <span class="n">as_scalar</span><span class="p">()</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">inserts_and_updates</em> - SQL Expression
+Language Tutorial</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_service.sp500">
+<span id="data-service-sp500-module"></span><h2>data_service.sp500 module<a class="headerlink" href="#module-data_service.sp500" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="data_service.sp500.SP500_list">
+<em class="property">class </em><tt class="descclassname">data_service.sp500.</tt><tt class="descname">SP500_list</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#data_service.sp500.SP500_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></tt></p>
+<p>Class that defines the table structure</p>
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.company_name">
+<tt class="descname">company_name</tt><a class="headerlink" href="#data_service.sp500.SP500_list.company_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.sp500.SP500_list.get_table_name">
+<tt class="descname">get_table_name</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.sp500.SP500_list.get_table_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.oper_per_share">
+<tt class="descname">oper_per_share</tt><a class="headerlink" href="#data_service.sp500.SP500_list.oper_per_share" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.oper_per_share_prior">
+<tt class="descname">oper_per_share_prior</tt><a class="headerlink" href="#data_service.sp500.SP500_list.oper_per_share_prior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.oper_per_share_rep">
+<tt class="descname">oper_per_share_rep</tt><a class="headerlink" href="#data_service.sp500.SP500_list.oper_per_share_rep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.oper_per_share_rep_prior">
+<tt class="descname">oper_per_share_rep_prior</tt><a class="headerlink" href="#data_service.sp500.SP500_list.oper_per_share_rep_prior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.sales">
+<tt class="descname">sales</tt><a class="headerlink" href="#data_service.sp500.SP500_list.sales" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.sales_prior">
+<tt class="descname">sales_prior</tt><a class="headerlink" href="#data_service.sp500.SP500_list.sales_prior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.sector">
+<tt class="descname">sector</tt><a class="headerlink" href="#data_service.sp500.SP500_list.sector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="data_service.sp500.SP500_list.ticket">
+<tt class="descname">ticket</tt><a class="headerlink" href="#data_service.sp500.SP500_list.ticket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.sp500.sp500">
+<em class="property">class </em><tt class="descclassname">data_service.sp500.</tt><tt class="descname">sp500</tt><big>(</big><em>source='sp500_standard'</em><big>)</big><a class="headerlink" href="#data_service.sp500.sp500" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dl class="staticmethod">
+<dt id="data_service.sp500.sp500.finsymbol">
+<em class="property">static </em><tt class="descname">finsymbol</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.sp500.sp500.finsymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull S&amp;P500 symbol list using finsymbol package. This method is not recommended because of stability issue.
+:return: S&amp;P500 list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.sp500.sp500.get_sp500_ticket_list">
+<tt class="descname">get_sp500_ticket_list</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.sp500.sp500.get_sp500_ticket_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.sp500.sp500.read_from_sql">
+<tt class="descname">read_from_sql</tt><big>(</big><em>engine</em><big>)</big><a class="headerlink" href="#data_service.sp500.sp500.read_from_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read ticket table from database.
+:param engine: SQLAlchemy engine
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.sp500.sp500.sp500_standard">
+<tt class="descname">sp500_standard</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.sp500.sp500.sp500_standard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull S&amp;P500 list from spindices official website. It download a xls file and using xlrd to parse it
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data_service.sp500.sp500.store_to_sql">
+<tt class="descname">store_to_sql</tt><big>(</big><em>engine</em><big>)</big><a class="headerlink" href="#data_service.sp500.sp500.store_to_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store the ticket list to SQL database
+:param engine: SQLAlchemy connection
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_service.test_unittest">
+<span id="data-service-test-unittest-module"></span><h2>data_service.test_unittest module<a class="headerlink" href="#module-data_service.test_unittest" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="data_service.test_unittest.TestSP500">
+<em class="property">class </em><tt class="descclassname">data_service.test_unittest.</tt><tt class="descname">TestSP500</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestSP500" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="data_service.test_unittest.TestSP500.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestSP500.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestSP500.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestSP500.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestSP500.test_pullsp500">
+<tt class="descname">test_pullsp500</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestSP500.test_pullsp500" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestSP500.test_readsql">
+<tt class="descname">test_readsql</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestSP500.test_readsql" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestSP500.test_storesql">
+<tt class="descname">test_storesql</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestSP500.test_storesql" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.test_unittest.TestStockClient">
+<em class="property">class </em><tt class="descclassname">data_service.test_unittest.</tt><tt class="descname">TestStockClient</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockClient.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockClient.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockClient.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockClient.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockClient.test_ReadStockRecord">
+<tt class="descname">test_ReadStockRecord</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockClient.test_ReadStockRecord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.test_unittest.TestStockOnline">
+<em class="property">class </em><tt class="descclassname">data_service.test_unittest.</tt><tt class="descname">TestStockOnline</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockOnline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockOnline.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockOnline.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockOnline.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockOnline.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockOnline.test_PullData">
+<tt class="descname">test_PullData</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockOnline.test_PullData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="data_service.test_unittest.TestStockServer">
+<em class="property">class </em><tt class="descclassname">data_service.test_unittest.</tt><tt class="descname">TestStockServer</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockServer.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockServer.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockServer.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockServer.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockServer.test_initdb">
+<tt class="descname">test_initdb</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockServer.test_initdb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="data_service.test_unittest.TestStockServer.test_updatedb">
+<tt class="descname">test_updatedb</tt><big>(</big><big>)</big><a class="headerlink" href="#data_service.test_unittest.TestStockServer.test_updatedb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_service">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-data_service" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">data_service package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-data_service.SQL_Util">data_service.SQL_Util module</a></li>
+<li><a class="reference internal" href="#module-data_service.StockData">data_service.StockData module</a></li>
+<li><a class="reference internal" href="#module-data_service.TicketListUtil">data_service.TicketListUtil module</a></li>
+<li><a class="reference internal" href="#module-data_service.option">data_service.option module</a></li>
+<li><a class="reference internal" href="#module-data_service.sp500">data_service.sp500 module</a></li>
+<li><a class="reference internal" href="#module-data_service.test_unittest">data_service.test_unittest module</a></li>
+<li><a class="reference internal" href="#module-data_service">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/data_service.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">UltraFinance 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Wenjie Lei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
