@@ -24,7 +24,7 @@ def get_hist_vol(ticket, lookback_num=30, limit=_TRADING_DAYS):
     t:   list, date corresponds to vol
     adj_close: adjusted close price for the same period
     """
-    fromsql   = StockClient('apc524','apc524','stockprice',host='junyic.net')
+    fromsql   = StockClient('apc524','apc524','stockprice',host='junyichai.com')
     if not fromsql.check_one_table_avail(ticket):
         raise ValueError('Ticket does not exist')
 
